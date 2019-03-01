@@ -7,8 +7,10 @@ import 'package:fluro/fluro.dart';
 import 'routers/application.dart';
 import 'package:flutter_weixin/utils/provider.dart';
 import 'package:flutter_weixin/utils/shared_preferences.dart';
+
 SpUtil sp;
 var db;
+
 void main() async {
   final provider = new Provider();
   await provider.init(true);
@@ -18,23 +20,20 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp()  {
+  MyApp() {
     final router = new Router();
     Routes.configureRoutes(router);
     Application.router = router;
   }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: GSYColors.primarySwatch,
-        cardColor: Color(0xFF4C4C4C)
-      ),
-      home: new Scaffold(
-          body: Bar()
-      ),
+          primarySwatch: GSYColors.primarySwatch, cardColor: Color(0xFF4C4C4C)),
+      home: new Scaffold(body: Bar()),
       onGenerateRoute: Application.router.generator,
     );
   }
@@ -50,7 +49,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBarFullDefault();

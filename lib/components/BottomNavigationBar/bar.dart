@@ -18,7 +18,7 @@ class _BarState extends State<Bar> with SingleTickerProviderStateMixin {
   TabController tabController;
   String appBarTitle = tabData[0]['text'];
   static List tabData = [
-    {'text': '微信', 'icon': new Icon(GSYICons.HOME_CHECKED)},
+    {'text': '微信', 'icon': new Icon(GSYICons.HOME)},
     {'text': '通讯录', 'icon': new Icon(GSYICons.ADDRESS_BOOK)},
     {'text': '发现', 'icon': new Icon(GSYICons.FOUND)},
     {'text': '我', 'icon': new Icon(GSYICons.WO)}
