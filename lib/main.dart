@@ -33,7 +33,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
           primarySwatch: GSYColors.primarySwatch, cardColor: Color(0xFF4C4C4C)),
-      home: new Scaffold(body: Bar()),
+      home: new Scaffold(
+          body: Bar()),
       onGenerateRoute: Application.router.generator,
     );
   }

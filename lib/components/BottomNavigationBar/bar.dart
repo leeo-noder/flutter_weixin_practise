@@ -13,9 +13,8 @@ class Bar extends StatefulWidget {
   }
 }
 
-class _BarState extends State<Bar> with SingleTickerProviderStateMixin {
-  WidgetControlModel widgetControlModel = new WidgetControlModel();
-  TabController tabController;
+class _BarState extends State<Bar> {
+  PageController _pageController;
   String appBarTitle = tabData[0]['text'];
   static List tabData = [
     {'text': '微信', 'icon': new Icon(GSYICons.HOME)},
@@ -23,35 +22,36 @@ class _BarState extends State<Bar> with SingleTickerProviderStateMixin {
     {'text': '发现', 'icon': new Icon(GSYICons.FOUND)},
     {'text': '我', 'icon': new Icon(GSYICons.WO)}
   ];
-  List<Widget> myTabs = [];
+  List<Widget> pages = [];
+  int _currentIndex = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('xxxx');
-    tabController = new TabController(length: 4, vsync: this, initialIndex: 0);
-    for (int i = 0; i < tabData.length; i++) {
-      myTabs.add(new Tab(text: tabData[i]['text'], icon: tabData[i]['icon']));
-    }
-    tabController.addListener(() {
-      if (tabController.indexIsChanging) {
-        _onTabChange();
-      }
-    });
-    Application.controller = tabController;
+    _pageController = PageController(initialPage: _currentIndex);
+    pages = [
+      Container(
+        color: Colors.red,
+      ),
+      Container(
+        color: Colors.green,
+      ),
+      Container(
+        color: Colors.orange,
+      ),
+      Container(
+        color: Colors.pinkAccent,
+      )
+    ];
   }
 
-  @override
-  void dispose() {
-    tabController.dispose();
-    super.dispose();
-  }
-
-  _onTabChange() {
-    if (this.mounted) {
-      this.setState(() {
-        appBarTitle = tabData[tabController.index]['text'];
+  void _onItemTapped(int index) {
+    if (mounted) {
+      setState(() {
+        _currentIndex = index;
+        appBarTitle = tabData[index]['text'];
+        _pageController.animateToPage(index, duration: Duration(milliseconds: 100), curve: Curves.bounceIn);
       });
     }
   }
@@ -99,22 +99,48 @@ class _BarState extends State<Bar> with SingleTickerProviderStateMixin {
             ),
           ],
         ),
-        body: Container(
-          child: ListView(
-            children: <Widget>[],
-          ),
-          color: Color(GSYColors.primaryLightValue),
+        body: PageView.builder(
+          itemBuilder: (BuildContext context, int index) {
+          return pages[index];
+         },
+        controller: _pageController,
+          itemCount: pages.length,
+          onPageChanged: (index) {
+            setState(() {
+              appBarTitle = tabData[index]['text'];
+              _currentIndex = index;
+            });
+          },
         ),
-        bottomNavigationBar: Material(
-          color: Color(GSYColors.primaryValue),
-          child: SafeArea(
-              child: Container(
-            child: TabBar(
-                controller: tabController,
-                labelColor: Colors.green,
-                unselectedLabelColor: Colors.black,
-                tabs: myTabs),
-          )),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          // BottomNavigationBarType 中定义的类型，有 fixed 和 shifting 两种类型
+          iconSize: 24.0,
+          // BottomNavigationBarItem 中 icon 的大小
+          currentIndex: _currentIndex,
+          // 当前所高亮的按钮index
+          onTap: _onItemTapped,
+          // 点击里面的按钮的回调函数，参数为当前点击的按钮 index
+          fixedColor: Colors.green,
+          // 如果 type 类型为 fixed，则通过 fixedColor 设置选中 item 的颜色
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                title: Text("微信"),
+                icon: Icon(GSYICons.HOME),
+                activeIcon: Icon(GSYICons.HOME_CHECKED)),
+            BottomNavigationBarItem(
+                title: Text("通讯录"),
+                icon: Icon(GSYICons.ADDRESS_BOOK),
+                activeIcon: Icon(GSYICons.ADDRESS_BOOK_CHECKED)),
+            BottomNavigationBarItem(
+                title: Text("发现"),
+                icon: Icon(GSYICons.FOUND),
+                activeIcon: Icon(GSYICons.FOUND_CHECKED)),
+            BottomNavigationBarItem(
+                title: Text("我"),
+                icon: Icon(GSYICons.WO),
+                activeIcon: Icon(GSYICons.WO_CHECKED)),
+          ],
         ));
   }
 }
