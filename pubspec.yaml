@@ -78,6 +78,9 @@ flutter:
   assets:
     - static/app.db
     - static/images/default_img.png
+    - static/images/dianxin.jpg
+    - static/images/xinwen.jpg
+    - static/images/zushou.jpg
   fonts:
     - family: wxIconFont
       fonts:

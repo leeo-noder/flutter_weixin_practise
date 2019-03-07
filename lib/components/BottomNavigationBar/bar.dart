@@ -48,7 +48,7 @@ class _BarState extends State<Bar> {
       setState(() {
         _currentIndex = index;
         appBarTitle = tabData[index]['text'];
-        _pageController.animateToPage(index, duration: Duration(milliseconds: 100), curve: Curves.bounceIn);
+        _pageController.animateToPage(index, duration: Duration(milliseconds: 1), curve: Curves.bounceIn);
       });
     }
   }
