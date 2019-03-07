@@ -30,9 +30,11 @@
 # Android related
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
+**/android/key.jks
 **/android/captures/
 **/android/gradlew
 **/android/gradlew.bat
+**/android/key.properties
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
 
