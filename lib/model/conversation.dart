@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weixin/utils/util.dart';
+import 'package:flutter_weixin/utils/sql.dart';
 
 class Conversation {
   const Conversation(
@@ -33,6 +34,28 @@ class Conversation {
         describtion: json['location']['timezone']['description'],
         unReadMsgCount: json['unReadMsgCount'],
         isNetwork: true);
+  }
+}
+
+class ConversationControlModel {
+  final String table = 'conversation';
+  Sql sql;
+
+  ConversationControlModel() {
+    sql = Sql.setTable(table);
+  }
+
+  Future insert(Conversation conversation) {
+    return sql.insert({'avatar': conversation.avatar, 'name': conversation.title});
+  }
+
+  Future<List<Conversation>> getAllConversation() async {
+    List list = await sql.getByCondition();
+    List<Conversation> resultList = [];
+    list.forEach((item){
+      resultList.add(Conversation.fromJson(item));
+    });
+    return resultList;
   }
 }
 

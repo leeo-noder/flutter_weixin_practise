@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weixin/model/conversation.dart'
-    show Conversation, mockConversation, preConversation;
+    show Conversation, mockConversation, preConversation, ConversationControlModel;
 import 'package:flutter_weixin/utils/net_utils.dart';
 import 'package:flutter_weixin/components/PullLoadWidget.dart';
 import 'package:flutter_weixin/components/ListState.dart';
@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage>
         AutomaticKeepAliveClientMixin<HomePage>,
         ListState<HomePage>,
         WidgetsBindingObserver {
+  ConversationControlModel _conversationControlModel = new ConversationControlModel();
   @override
   Widget build(BuildContext context) {
     return PullLoadWidget(
@@ -108,6 +109,9 @@ class _HomePageState extends State<HomePage>
           response['results'][i]['unReadMsgCount'] =
               i == Random().nextInt(10) ? Random().nextInt(20) : 0;
           mockConversation.add(Conversation.fromJson(response['results'][i]));
+           _conversationControlModel.insert(Conversation.fromJson(response['results'][i])).then((result) {
+           // print('插入一条数据！！！');
+          });
         }
         /*   Map<String, dynamic> user = json.decode(response['results']);
         print(user);*/

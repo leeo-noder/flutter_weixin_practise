@@ -60,6 +60,7 @@ class Sql extends BaseModel {
   }
   Future<Map<String, dynamic>> insert(Map<String, dynamic> json) async {
     var id = await this.db.insert(tableName, json);
+    print('id ==========> ' + id.toString());
     json['id'] = id;
     return json;
   }
