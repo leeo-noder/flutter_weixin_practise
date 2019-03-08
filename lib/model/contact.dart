@@ -21,7 +21,8 @@ class Contact {
 
 List<Contact> mockContact = [];
 List<Contact> preContact = [
-  const Contact(avatar: 'static/images/zushou.jpg', name: '文件传输助手'),
-  const Contact(avatar: 'static/images/xinwen.jpg', name: '腾讯新闻'),
-  const Contact(avatar: 'static/images/dianxin.jpg', name: '中国电信'),
+  const Contact(avatar: 'static/images/contact_new_friend.png', name: '新的朋友'),
+  const Contact(avatar: 'static/images/contact_group.png', name: '群聊'),
+  const Contact(avatar: 'static/images/contact_tag.png', name: '标签'),
+  const Contact(avatar: 'static/images/contact_public_number.png', name: '公众号')
 ];

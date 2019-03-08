@@ -83,6 +83,11 @@ flutter:
     - static/images/dianxin.jpg
     - static/images/xinwen.jpg
     - static/images/zushou.jpg
+    - static/images/default_nor_avatar.png
+    - static/images/contact_group.png
+    - static/images/contact_new_friend.png
+    - static/images/contact_public_number.png
+    - static/images/contact_tag.png
   fonts:
     - family: wxIconFont
       fonts:
