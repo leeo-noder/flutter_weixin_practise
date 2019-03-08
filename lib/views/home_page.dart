@@ -126,21 +126,23 @@ class _DeviceInfoItem extends StatelessWidget {
       padding: EdgeInsets.only(top: 12.0, bottom: 12.0),
       decoration: BoxDecoration(
           border: Border(
-            top: BorderSide(color: Color(0xffd9d9d9),width: .4),
+              top: BorderSide(color: Color(0xffd9d9d9), width: .4),
               bottom: BorderSide(color: Color(0xffd9d9d9), width: .5)),
-        color: Color(0xffEDEDED)
-      ),
+          color: Color(0xffEDEDED)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(left: 22.0,right: 25.0),
+            padding: EdgeInsets.only(left: 22.0, right: 25.0),
             child: Icon(GSYICons.XIANSHIQI),
           ),
           Text(
             'Windows 微信已登录，手机通知已关闭',
-            style: TextStyle(fontSize: 13.5, color: Colors.black54, fontWeight: FontWeight.w500),
+            style: TextStyle(
+                fontSize: 13.5,
+                color: Colors.black54,
+                fontWeight: FontWeight.w500),
           )
         ],
       ),
@@ -210,8 +212,6 @@ class _ConversationItem extends StatelessWidget {
     }
 
     return Container(
-      decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Color(0xffd9d9d9),width: .5))),
       height: 75,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -225,7 +225,10 @@ class _ConversationItem extends StatelessWidget {
           ),
           Expanded(
               child: Container(
-            padding: EdgeInsets.only(top: 12.0),
+            decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(color: Color(0xffd9d9d9), width: .5))),
+            padding: EdgeInsets.only(top: 14.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -245,12 +248,14 @@ class _ConversationItem extends StatelessWidget {
             ),
           )),
           Container(
+              decoration: BoxDecoration(
+                  border: Border(bottom: BorderSide(color: Color(0xffd9d9d9),width: .5))),
               padding: EdgeInsets.only(top: 12.0, right: 10.0),
               child: Column(
                 children: <Widget>[
                   Text(
                     conversation.createAt,
-                    style: TextStyle(color: Colors.grey, fontSize: 14.0),
+                    style: TextStyle(color: Color(0xffBEBEBE), fontSize: 13.0),
                   ),
                 ],
               ))
