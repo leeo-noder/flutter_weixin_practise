@@ -212,6 +212,7 @@ class GSYICons {
 
   static const String DEFAULT_USER_ICON = 'static/images/logo.png';
   static const String DEFAULT_IMAGE = 'static/images/default_img.png';
+  static const IconData XIANSHIQI = const IconData(0xe61d, fontFamily: GSYICons.FONT_FAMILY);
 
   static const IconData HOME = const IconData(0xe65d, fontFamily: GSYICons.FONT_FAMILY);
   static const IconData HOME_CHECKED = const IconData(0xe619, fontFamily: GSYICons.FONT_FAMILY);

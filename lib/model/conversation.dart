@@ -39,16 +39,21 @@ class Conversation {
 List<Conversation> mockConversation = [];
 List<Conversation> preConversation = [
   const Conversation(
-      avatar: 'static/images/xinwen.jpg',
-      title: '腾讯新闻',
-      createAt: '12:09',
-      describtion: '微视频：人民代表xxx履职记',
-      displayDot: true),
+      avatar: '',
+      title: '',
+      createAt: '',
+      describtion: ''),
   const Conversation(
       avatar: 'static/images/zushou.jpg',
       title: '文件传输助手',
       createAt: '08:12',
       describtion: ''),
+  const Conversation(
+      avatar: 'static/images/xinwen.jpg',
+      title: '腾讯新闻',
+      createAt: '12:09',
+      describtion: '微视频：人民代表xxx履职记',
+      displayDot: true),
   const Conversation(
       avatar: 'static/images/dianxin.jpg',
       title: '中国电信',

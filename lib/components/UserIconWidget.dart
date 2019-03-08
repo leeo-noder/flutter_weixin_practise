@@ -19,7 +19,8 @@ class UserIconWidget extends StatelessWidget {
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         padding: padding ?? const EdgeInsets.only(top: 4.0, right: 5.0, left: 5.0),
         constraints: const BoxConstraints(minWidth: 0.0, minHeight: 0.0),
-        child: new ClipRRect(
+        child:
+        new ClipRRect(
           borderRadius: new BorderRadius.all(
               new Radius.circular(5.0)),
           child: this.isNetwork ? new FadeInImage.assetNetwork(

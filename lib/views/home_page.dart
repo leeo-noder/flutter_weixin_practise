@@ -5,6 +5,7 @@ import 'package:flutter_weixin/utils/net_utils.dart';
 import 'package:flutter_weixin/components/PullLoadWidget.dart';
 import 'package:flutter_weixin/components/ListState.dart';
 import 'package:flutter_weixin/components/UserIconWidget.dart';
+import 'package:flutter_weixin/common/style/GSYStyle.dart';
 import 'dart:math';
 
 class HomePage extends StatefulWidget {
@@ -21,8 +22,13 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return PullLoadWidget(
       pullLoadWidgetControl,
-      (BuildContext context, int index) => _ConversationItem(
-          conversation: pullLoadWidgetControl.dataList[index]),
+      (BuildContext context, int index) {
+        if (index == 0) {
+          return _DeviceInfoItem();
+        }
+        return _ConversationItem(
+            conversation: pullLoadWidgetControl.dataList[index]);
+      },
       handleRefresh,
       onLoadMore,
       refreshKey: refreshIndicatorKey,
@@ -47,7 +53,7 @@ class _HomePageState extends State<HomePage>
     await getIndexListData(page);
     setState(() {
       pullLoadWidgetControl.needLoadMore =
-          (mockConversation != null && mockConversation.length == 13);
+          (mockConversation != null && mockConversation.length == 14);
     });
     isLoading = false;
     return null;
@@ -72,8 +78,9 @@ class _HomePageState extends State<HomePage>
     page++;
     await getIndexListData(page);
     setState(() {
+      // 3次加载数据
       pullLoadWidgetControl.needLoadMore =
-          (mockConversation != null && mockConversation.length < 23);
+          (mockConversation != null && mockConversation.length < 25);
     });
     isLoading = false;
     return null;
@@ -98,14 +105,46 @@ class _HomePageState extends State<HomePage>
           await NetUtils.get('https://randomuser.me/api/?results=10');
       setState(() {
         for (int i = 0; i < response['results'].length; i++) {
-          
-          response['results'][i]['unReadMsgCount'] = i == Random().nextInt(10) ? Random().nextInt(20) : 0;
+          response['results'][i]['unReadMsgCount'] =
+              i == Random().nextInt(10) ? Random().nextInt(20) : 0;
           mockConversation.add(Conversation.fromJson(response['results'][i]));
         }
+        /*   Map<String, dynamic> user = json.decode(response['results']);
+        print(user);*/
+        /* response['results'].sort((a,b) => a['unReadMsgCount'] - b['unReadMsgCount']);*/
       });
     } catch (e) {
       print(e);
     }
+  }
+}
+
+class _DeviceInfoItem extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 12.0, bottom: 12.0),
+      decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(color: Color(0xffd9d9d9),width: .4),
+              bottom: BorderSide(color: Color(0xffd9d9d9), width: .5)),
+        color: Color(0xffEDEDED)
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(left: 22.0,right: 25.0),
+            child: Icon(GSYICons.XIANSHIQI),
+          ),
+          Text(
+            'Windows 微信已登录，手机通知已关闭',
+            style: TextStyle(fontSize: 13.5, color: Colors.black54, fontWeight: FontWeight.w500),
+          )
+        ],
+      ),
+    );
   }
 }
 
@@ -127,7 +166,8 @@ class _ConversationItem extends StatelessWidget {
         onPressed: () {
           // NavigatorUtils.goPerson(context, eventViewModel.actionUser);
         });
-    // 维度消息角标 bg = 0xffff3e3e
+
+    // 未读消息角标
     Widget unReadMsgCountText;
     if (conversation.unReadMsgCount > 0) {
       unReadMsgCountText = Positioned(
@@ -171,7 +211,7 @@ class _ConversationItem extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Color(0xffd9d9d9)))),
+          border: Border(bottom: BorderSide(color: Color(0xffd9d9d9),width: .5))),
       height: 75,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -205,7 +245,7 @@ class _ConversationItem extends StatelessWidget {
             ),
           )),
           Container(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(top: 12.0, right: 10.0),
               child: Column(
                 children: <Widget>[
                   Text(
