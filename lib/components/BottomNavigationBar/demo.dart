@@ -1,14 +1,6 @@
-/**
- * Created with Android Studio.
- * User: ryan
- * Date: 2018/12/27
- * Time: 下午6:27
- * email: zhu.yan@alibaba-inc.com
- * tartget: BottomNavigationBar 的示例
- */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_weixin/common/style/GSYStyle.dart';
+import 'package:flutter_weixin/common/style/Style.dart';
 /*
 * BottomNavigationBar 默认的实例
 * */
@@ -42,13 +34,13 @@ class _BottomNavigationBarFullDefault extends State {
       fixedColor: Colors.green, // 如果 type 类型为 fixed，则通过 fixedColor 设置选中 item 的颜色
       items: <BottomNavigationBarItem> [
         BottomNavigationBarItem(
-            title:  Text("微信"), icon:  Icon(GSYICons.HOME), activeIcon: Icon(GSYICons.HOME_CHECKED)),
+            title:  Text("微信"), icon:  Icon(ICons.HOME), activeIcon: Icon(ICons.HOME_CHECKED)),
         BottomNavigationBarItem(
-            title:  Text("通讯录"), icon:  Icon(GSYICons.ADDRESS_BOOK), activeIcon: Icon(GSYICons.ADDRESS_BOOK_CHECKED)),
+            title:  Text("通讯录"), icon:  Icon(ICons.ADDRESS_BOOK), activeIcon: Icon(ICons.ADDRESS_BOOK_CHECKED)),
         BottomNavigationBarItem(
-            title:  Text("发现"), icon:  Icon(GSYICons.FOUND), activeIcon: Icon(GSYICons.FOUND_CHECKED)),
+            title:  Text("发现"), icon:  Icon(ICons.FOUND), activeIcon: Icon(ICons.FOUND_CHECKED)),
         BottomNavigationBarItem(
-            title:  Text("我"), icon:  Icon(GSYICons.WO), activeIcon: Icon(GSYICons.WO_CHECKED)),
+            title:  Text("我"), icon:  Icon(ICons.WO), activeIcon: Icon(ICons.WO_CHECKED)),
       ],
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weixin/common/style/GSYStyle.dart';
+import 'package:flutter_weixin/common/style/Style.dart';
 import 'package:flutter_weixin/views/home_page.dart';
 import 'package:flutter_weixin/views/contacts_page.dart';
 
@@ -17,10 +17,10 @@ class _BarState extends State<Bar> {
   PageController _pageController;
   String appBarTitle = tabData[0]['text'];
   static List tabData = [
-    {'text': '微信', 'icon': new Icon(GSYICons.HOME)},
-    {'text': '通讯录', 'icon': new Icon(GSYICons.ADDRESS_BOOK)},
-    {'text': '发现', 'icon': new Icon(GSYICons.FOUND)},
-    {'text': '我', 'icon': new Icon(GSYICons.WO)}
+    {'text': '微信', 'icon': new Icon(ICons.HOME)},
+    {'text': '通讯录', 'icon': new Icon(ICons.ADDRESS_BOOK)},
+    {'text': '发现', 'icon': new Icon(ICons.FOUND)},
+    {'text': '我', 'icon': new Icon(ICons.WO)}
   ];
   List<Widget> pages = [];
   int _currentIndex = 0;
@@ -96,12 +96,12 @@ class _BarState extends State<Bar> {
                   itemBuilder: (BuildContext context) {
                     return <PopupMenuItem<String>>[
                       PopupMenuItem(
-                        child: _buildPopupMenuItem(GSYICons.HOME_CHECKED, '发起群聊'),
+                        child: _buildPopupMenuItem(ICons.HOME_CHECKED, '发起群聊'),
                         value: "1",
                       ),
                       PopupMenuItem(
                         child: _buildPopupMenuItem(
-                            GSYICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
+                            ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
                         value: "2",
                       )
                     ];
@@ -138,20 +138,20 @@ class _BarState extends State<Bar> {
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                     title: Text("微信"),
-                    icon: Icon(GSYICons.HOME),
-                    activeIcon: Icon(GSYICons.HOME_CHECKED)),
+                    icon: Icon(ICons.HOME),
+                    activeIcon: Icon(ICons.HOME_CHECKED)),
                 BottomNavigationBarItem(
                     title: Text("通讯录"),
-                    icon: Icon(GSYICons.ADDRESS_BOOK),
-                    activeIcon: Icon(GSYICons.ADDRESS_BOOK_CHECKED)),
+                    icon: Icon(ICons.ADDRESS_BOOK),
+                    activeIcon: Icon(ICons.ADDRESS_BOOK_CHECKED)),
                 BottomNavigationBarItem(
                     title: Text("发现"),
-                    icon: Icon(GSYICons.FOUND),
-                    activeIcon: Icon(GSYICons.FOUND_CHECKED)),
+                    icon: Icon(ICons.FOUND),
+                    activeIcon: Icon(ICons.FOUND_CHECKED)),
                 BottomNavigationBarItem(
                     title: Text("我"),
-                    icon: Icon(GSYICons.WO),
-                    activeIcon: Icon(GSYICons.WO_CHECKED)),
+                    icon: Icon(ICons.WO),
+                    activeIcon: Icon(ICons.WO_CHECKED)),
               ],
             )),
         onWillPop: () {

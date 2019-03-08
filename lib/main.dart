@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'common/style/GSYStyle.dart';
 import 'components/BottomNavigationBar/demo.dart';
 import 'components/BottomNavigationBar/bar.dart';
 import 'routers/routers.dart';
@@ -7,7 +6,7 @@ import 'package:fluro/fluro.dart';
 import 'routers/application.dart';
 import 'package:flutter_weixin/utils/provider.dart';
 import 'package:flutter_weixin/utils/shared_preferences.dart';
-
+import 'package:flutter_weixin/common/style/Style.dart';
 SpUtil sp;
 var db;
 
@@ -30,9 +29,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter WeiXin Demo',
       theme: ThemeData(
-          primarySwatch: GSYColors.primarySwatch, cardColor: Color(0xFF4C4C4C)),
+          primarySwatch: Style.primarySwatch, cardColor: Color(0xFF4C4C4C)),
       home: new Scaffold(
           body: Bar()),
       onGenerateRoute: Application.router.generator,

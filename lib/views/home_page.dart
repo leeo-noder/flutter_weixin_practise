@@ -5,7 +5,7 @@ import 'package:flutter_weixin/utils/net_utils.dart';
 import 'package:flutter_weixin/components/PullLoadWidget.dart';
 import 'package:flutter_weixin/components/ListState.dart';
 import 'package:flutter_weixin/components/UserIconWidget.dart';
-import 'package:flutter_weixin/common/style/GSYStyle.dart';
+import 'package:flutter_weixin/common/style/Style.dart';
 import 'dart:math';
 
 class HomePage extends StatefulWidget {
@@ -135,7 +135,7 @@ class _DeviceInfoItem extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(left: 22.0, right: 25.0),
-            child: Icon(GSYICons.XIANSHIQI),
+            child: Icon(ICons.XIANSHIQI),
           ),
           Text(
             'Windows 微信已登录，手机通知已关闭',
