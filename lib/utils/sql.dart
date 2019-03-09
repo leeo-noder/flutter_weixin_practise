@@ -20,9 +20,13 @@ class Sql extends BaseModel {
       : tableName = name,
         super(Provider.db);
 
-  // sdf
+
   Future<List> get() async{
     return await this.query(tableName);
+  }
+  Future<List> getAll() async{
+    var result = await this.query(tableName);
+    return result.toList();
   }
   String getTableName () {
     return tableName;
@@ -31,7 +35,9 @@ class Sql extends BaseModel {
   Future<int> delete(String value,String key) async{
     return await this.db.delete(tableName,where:'$key = ?',whereArgs:[value]);
   }
-
+  Future<int> clearTable(String tableName) async{
+    return await this.db.delete(tableName);
+  }
   Future<List> getByCondition({Map<dynamic, dynamic> conditions}) async {
     if (conditions == null || conditions.isEmpty) {
       return this.get();
@@ -60,7 +66,6 @@ class Sql extends BaseModel {
   }
   Future<Map<String, dynamic>> insert(Map<String, dynamic> json) async {
     var id = await this.db.insert(tableName, json);
-    print('id ==========> ' + id.toString());
     json['id'] = id;
     return json;
   }

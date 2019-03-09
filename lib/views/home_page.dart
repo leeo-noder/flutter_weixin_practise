@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weixin/model/conversation.dart'
-    show Conversation, mockConversation, preConversation, ConversationControlModel;
+    show
+        Conversation,
+        mockConversation,
+        preConversation,
+        ConversationControlModel,
+        Manager;
 import 'package:flutter_weixin/utils/net_utils.dart';
 import 'package:flutter_weixin/components/PullLoadWidget.dart';
 import 'package:flutter_weixin/components/ListState.dart';
@@ -18,7 +23,9 @@ class _HomePageState extends State<HomePage>
         AutomaticKeepAliveClientMixin<HomePage>,
         ListState<HomePage>,
         WidgetsBindingObserver {
-  ConversationControlModel _conversationControlModel = new ConversationControlModel();
+  ConversationControlModel _conversationControlModel =
+      new ConversationControlModel();
+  Manager manager = new Manager();
   @override
   Widget build(BuildContext context) {
     return PullLoadWidget(
@@ -39,6 +46,7 @@ class _HomePageState extends State<HomePage>
   @override
   bool get isRefreshFirst => false;
 
+  // 只会执行一次initState()
   @override
   bool get wantKeepAlive => true;
 
@@ -51,6 +59,7 @@ class _HomePageState extends State<HomePage>
     page = 1;
     mockConversation.clear();
     mockConversation.addAll(preConversation);
+    _conversationControlModel.clear();
     await getIndexListData(page);
     setState(() {
       pullLoadWidgetControl.needLoadMore =
@@ -65,6 +74,7 @@ class _HomePageState extends State<HomePage>
   void didChangeDependencies() {
     mockConversation.addAll(preConversation);
     pullLoadWidgetControl.dataList = mockConversation;
+    _conversationControlModel.clear();
     getIndexListData(1);
     setState(() => {pullLoadWidgetControl.needLoadMore = true});
     super.didChangeDependencies();
@@ -101,6 +111,7 @@ class _HomePageState extends State<HomePage>
   }
 
   getIndexListData(page) async {
+    manager.setSate(true);
     try {
       var response =
           await NetUtils.get('https://randomuser.me/api/?results=10');
@@ -109,13 +120,11 @@ class _HomePageState extends State<HomePage>
           response['results'][i]['unReadMsgCount'] =
               i == Random().nextInt(10) ? Random().nextInt(20) : 0;
           mockConversation.add(Conversation.fromJson(response['results'][i]));
-           _conversationControlModel.insert(Conversation.fromJson(response['results'][i])).then((result) {
-           // print('插入一条数据！！！');
+          _conversationControlModel
+              .insert(Conversation.fromJson(response['results'][i]))
+              .then((result) {
           });
         }
-        /*   Map<String, dynamic> user = json.decode(response['results']);
-        print(user);*/
-        /* response['results'].sort((a,b) => a['unReadMsgCount'] - b['unReadMsgCount']);*/
       });
     } catch (e) {
       print(e);
@@ -253,7 +262,8 @@ class _ConversationItem extends StatelessWidget {
           )),
           Container(
               decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Color(0xffd9d9d9),width: .5))),
+                  border: Border(
+                      bottom: BorderSide(color: Color(0xffd9d9d9), width: .5))),
               padding: EdgeInsets.only(top: 12.0, right: 10.0),
               child: Column(
                 children: <Widget>[

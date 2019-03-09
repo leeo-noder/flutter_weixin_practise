@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weixin/model/contact.dart' show preContact, Contact;
+import 'package:flutter_weixin/model/contact.dart' show preContact, mockContact, Contact;
 import 'package:flutter_weixin/components/UserIconWidget.dart';
+import 'package:flutter_weixin/model/conversation.dart'
+    show
+    ConversationControlModel,
+    Manager;
 
 class ContactsPage extends StatefulWidget {
   @override
@@ -8,16 +12,38 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
+  ConversationControlModel _conversationControlModel = new ConversationControlModel();
+  Manager manager = new Manager();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(manager.getState());
+    if (manager.getState()) {
+      mockContact.clear();
+      _conversationControlModel.sql.getAll().then( (result){
+        manager.setSate(false);
+        setState(() {
+          print(result);
+          result.forEach((item) {
+            mockContact.add(Contact(avatar: item['avatar'], name: item['name'], isNetwork: true));
+          });
+          mockContact.insertAll(0, preContact);
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
           return _ContactItem(
-            contact: preContact[index],
+            contact: mockContact[index],
           );
         },
-        itemCount: preContact.length,
+        itemCount: mockContact.length,
       ),
     );
   }

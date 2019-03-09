@@ -38,6 +38,7 @@ class Conversation {
 }
 
 class ConversationControlModel {
+
   final String table = 'conversation';
   Sql sql;
 
@@ -45,6 +46,9 @@ class ConversationControlModel {
     sql = Sql.setTable(table);
   }
 
+  Future clear() {
+   return sql.clearTable(table);
+  }
   Future insert(Conversation conversation) {
     return sql.insert({'avatar': conversation.avatar, 'name': conversation.title});
   }
@@ -84,3 +88,25 @@ List<Conversation> preConversation = [
       describtion: '月度账单提醒',
       unReadMsgCount: 1),
 ];
+class Manager {
+  // 工厂模式
+  factory Manager() =>_getInstance();
+  static Manager get instance => _getInstance();
+  static Manager _instance;
+  bool _hasNewData = false;
+  Manager._internal() {
+    // 初始化
+  }
+  static Manager _getInstance() {
+    if (_instance == null) {
+      _instance = new Manager._internal();
+    }
+    return _instance;
+  }
+  setSate(bool hasNewData) {
+    this._hasNewData = hasNewData;
+  }
+  getState() {
+    return this._hasNewData;
+  }
+}
