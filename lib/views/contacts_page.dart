@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weixin/model/contact.dart' show preContact, mockContact, Contact;
+import 'package:flutter_weixin/model/contact.dart'
+    show preContact, mockContact, Contact;
 import 'package:flutter_weixin/components/UserIconWidget.dart';
 import 'package:flutter_weixin/model/conversation.dart'
-    show
-    ConversationControlModel,
-    Manager;
+    show ConversationControlModel, Manager;
 
 class ContactsPage extends StatefulWidget {
   @override
@@ -12,8 +11,10 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
-  ConversationControlModel _conversationControlModel = new ConversationControlModel();
+  ConversationControlModel _conversationControlModel =
+      new ConversationControlModel();
   Manager manager = new Manager();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -21,14 +22,20 @@ class _ContactsPageState extends State<ContactsPage> {
     print(manager.getState());
     if (manager.getState()) {
       mockContact.clear();
-      _conversationControlModel.sql.getAll().then( (result){
+      _conversationControlModel.sql.getAll().then((result) {
         manager.setSate(false);
+        List<Contact> arr = [];
+        result.forEach((item) {
+          arr.add(Contact(
+              avatar: item['avatar'],
+              name: item['name'],
+              nameIndex: item['name'].toString().substring(0, 1).toUpperCase(),
+              isNetwork: true));
+        });
+        arr.sort((Contact a, Contact b) => a.nameIndex.compareTo(b.nameIndex));
+        arr.insertAll(0, preContact);
         setState(() {
-          print(result);
-          result.forEach((item) {
-            mockContact.add(Contact(avatar: item['avatar'], name: item['name'], isNetwork: true));
-          });
-          mockContact.insertAll(0, preContact);
+          mockContact.addAll(arr);
         });
       });
     }
@@ -39,9 +46,14 @@ class _ContactsPageState extends State<ContactsPage> {
     return Container(
       child: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
+          bool isNameIndex = true;
+          if (index >= preContact.length &&
+              mockContact[index].nameIndex ==
+                  mockContact[index - 1].nameIndex) {
+            isNameIndex = false;
+          }
           return _ContactItem(
-            contact: mockContact[index],
-          );
+              contact: mockContact[index], isNameIndex: isNameIndex);
         },
         itemCount: mockContact.length,
       ),
@@ -50,10 +62,11 @@ class _ContactsPageState extends State<ContactsPage> {
 }
 
 class _ContactItem extends StatelessWidget {
-  const _ContactItem({Key key, this.contact})
+  const _ContactItem({Key key, this.contact, this.isNameIndex})
       : assert(contact != null),
         super(key: key);
   final Contact contact;
+  final bool isNameIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -67,30 +80,49 @@ class _ContactItem extends StatelessWidget {
         onPressed: () {
           // NavigatorUtils.goPerson(context, eventViewModel.actionUser);
         });
-    return Container(
-      height: 58,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          userImage,
-          Expanded(
-              child: Container(
+    Widget itemRow = Row(
+      // mainAxisAlignment: MainAxisAlignment.end,
+      children: <Widget>[
+        userImage,
+        Expanded(
+          child: Container(
             decoration: BoxDecoration(
                 border: Border(
                     bottom: BorderSide(color: Color(0xffd9d9d9), width: .5))),
-            padding: EdgeInsets.only(top: 18.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  contact.name,
-                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
-                ),
-              ],
+            padding: EdgeInsets.only(top: 8.0),
+            child: Container(
+             // alignment: Alignment.centerLeft,
+              margin: EdgeInsets.only(bottom: 12.0),
+              child: Text(
+                contact.name,
+                style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+              ),
             ),
-          ))
-        ],
-      ),
+          ),
+        )
+      ],
+    );
+    Widget contactItem = contact.isNetwork
+        ? (isNameIndex
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.only(left: 12.0, bottom: 0.0),
+                    color: Color(0xffE7E8EA),
+                    height: 30.0,
+                    alignment: Alignment.centerLeft,
+                    child: Text(contact.nameIndex),
+                  ),
+                  itemRow
+                ],
+              )
+            : itemRow)
+        : itemRow;
+
+    return Container(
+      height: contact.isNetwork && isNameIndex ? 86 : 56,
+      child: contactItem,
     );
   }
 }

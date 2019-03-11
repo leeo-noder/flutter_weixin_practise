@@ -4,16 +4,19 @@ class Contact {
   const Contact({
     @required this.avatar,
     @required this.name,
+    this.nameIndex,
     this.isNetwork = false
   })  : assert(avatar != null),
         assert(name != null);
   final String avatar;
   final String name;
+  final String nameIndex;
   final bool isNetwork;
   factory Contact.fromJson(Map<String, dynamic> json) {
     return Contact(
       avatar: json['picture']['thumbnail'],
       name: json['name']['first'] + ' ' + json['name']['last'],
+      nameIndex: json['name']['first'].toString().substring(0,1),
       isNetwork: true
     );
   }
