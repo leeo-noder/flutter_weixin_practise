@@ -6,9 +6,42 @@ import 'package:flutter_weixin/model/conversation.dart'
     show ConversationControlModel, Manager;
 
 class ContactsPage extends StatefulWidget {
+  Color _indexBarBg = Colors.transparent;
+
   @override
   _ContactsPageState createState() => _ContactsPageState();
 }
+
+const INDEX_BAR_WORDS = [
+  "↑",
+  "☆",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z"
+];
 
 class _ContactsPageState extends State<ContactsPage> {
   ConversationControlModel _conversationControlModel =
@@ -43,20 +76,55 @@ class _ContactsPageState extends State<ContactsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          bool isNameIndex = true;
-          if (index >= preContact.length &&
-              mockContact[index].nameIndex ==
-                  mockContact[index - 1].nameIndex) {
-            isNameIndex = false;
-          }
-          return _ContactItem(
-              contact: mockContact[index], isNameIndex: isNameIndex);
-        },
-        itemCount: mockContact.length,
-      ),
+    final List<Widget> _letters = INDEX_BAR_WORDS.map((String word) {
+      return Expanded(child: Text(word));
+    }).toList();
+    return Stack(
+      children: <Widget>[
+        ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            bool isNameIndex = true;
+            if (index >= preContact.length &&
+                mockContact[index].nameIndex ==
+                    mockContact[index - 1].nameIndex) {
+              isNameIndex = false;
+            }
+            return _ContactItem(
+                contact: mockContact[index], isNameIndex: isNameIndex);
+          },
+          itemCount: mockContact.length,
+        ),
+        Positioned(
+            width: 24.0,
+            right: 0.0,
+            top: 0.0,
+            bottom: 0.0,
+            child: Container(
+              color: widget._indexBarBg,
+              child: GestureDetector(
+                onVerticalDragDown: (DragDownDetails details) {
+                  setState(() {
+                    widget._indexBarBg = Colors.black26;
+                  });
+                },
+                onVerticalDragEnd: (DragEndDetails details) {
+                  print('end');
+                  setState(() {
+                    widget._indexBarBg = Colors.transparent;
+                  });
+                },
+                onVerticalDragCancel: () {
+                  print('cancel');
+                  setState(() {
+                    widget._indexBarBg = Colors.transparent;
+                  });
+                },
+              child: Column(
+                children: _letters,
+              ),
+              ),
+            ))
+      ],
     );
   }
 }
@@ -81,7 +149,6 @@ class _ContactItem extends StatelessWidget {
           // NavigatorUtils.goPerson(context, eventViewModel.actionUser);
         });
     Widget itemRow = Row(
-      // mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
         userImage,
         Expanded(
@@ -91,7 +158,7 @@ class _ContactItem extends StatelessWidget {
                     bottom: BorderSide(color: Color(0xffd9d9d9), width: .5))),
             padding: EdgeInsets.only(top: 8.0),
             child: Container(
-             // alignment: Alignment.centerLeft,
+              // alignment: Alignment.centerLeft,
               margin: EdgeInsets.only(bottom: 12.0),
               child: Text(
                 contact.name,
