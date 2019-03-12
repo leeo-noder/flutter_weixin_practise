@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -7,7 +6,8 @@ class ListRefresh extends StatefulWidget {
   final requestApi;
   final headerView;
 
-  const ListRefresh([this.requestApi, this.renderItem, this.headerView]) : super();
+  const ListRefresh([this.requestApi, this.renderItem, this.headerView])
+      : super();
 
   @override
   State<StatefulWidget> createState() => _ListRefreshState();
@@ -114,11 +114,11 @@ class _ListRefreshState extends State<ListRefresh> {
   Widget _buildLoadText() {
     return Container(
         child: Padding(
-      padding: const EdgeInsets.all(18.0),
-      child: Center(
-        child: Text("数据没有更多了！！！"),
-      ),
-    ));
+          padding: const EdgeInsets.all(18.0),
+          child: Center(
+            child: Text("数据没有更多了！！！"),
+          ),
+        ));
   }
 
   /*
@@ -130,21 +130,21 @@ class _ListRefreshState extends State<ListRefresh> {
         padding: const EdgeInsets.all(8.0),
         child: new Center(
             child: Column(
-          children: <Widget>[
-            new Opacity(
-              opacity: isLoading ? 1.0 : 0.0,
-              child: new CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation(Colors.blue)),
-            ),
-            SizedBox(height: 20.0),
-            Text(
-              '稍等片刻更精彩...',
-              style: TextStyle(fontSize: 14.0),
+              children: <Widget>[
+                new Opacity(
+                  opacity: isLoading ? 1.0 : 0.0,
+                  child: new CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation(Colors.blue)),
+                ),
+                SizedBox(height: 20.0),
+                Text(
+                  '稍等片刻更精彩...',
+                  style: TextStyle(fontSize: 14.0),
+                )
+              ],
             )
-          ],
-        )
-            //child:
-            ),
+          //child:
+        ),
       );
     } else {
       return _buildLoadText();
@@ -164,9 +164,9 @@ class _ListRefreshState extends State<ListRefresh> {
         itemCount: items.length + 1,
         itemBuilder: (context, index) {
           if (index == 0 && index != items.length) {
-            if(widget.headerView is Function){
+            if (widget.headerView is Function) {
               return widget.headerView();
-            }else {
+            } else {
               return Container(height: 0);
             }
           }

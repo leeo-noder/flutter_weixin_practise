@@ -5,132 +5,140 @@ import 'package:flutter_weixin/components/PullLoadWidget.dart';
 /**
  * 上下拉刷新列表的通用State
  */
-mixin ListState<T extends StatefulWidget> on State<T>, AutomaticKeepAliveClientMixin<T> {
-  bool isShow = false;
+mixin ListState
+<
+T extends StatefulWidget>
 
-  bool isLoading = false;
+on State
+<
+T>,
+AutomaticKeepAliveClientMixin<T>
+{
+bool isShow = false;
 
-  int page = 1;
+bool isLoading = false;
 
-  final List dataList = new List();
+int page = 1;
 
-  final PullLoadWidgetControl pullLoadWidgetControl = new PullLoadWidgetControl();
+final List dataList = new List();
 
-  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+final PullLoadWidgetControl pullLoadWidgetControl = new PullLoadWidgetControl();
 
-  showRefreshLoading() {
-    new Future.delayed(const Duration(seconds: 0), () {
-      refreshIndicatorKey.currentState.show().then((e) {});
-      return true;
-    });
-  }
+final GlobalKey<RefreshIndicatorState> refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
 
-  @protected
-  resolveRefreshResult(res) {
-    if (res != null && res.result) {
-      pullLoadWidgetControl.dataList.clear();
-      if (isShow) {
-        setState(() {
-          pullLoadWidgetControl.dataList.addAll(res.data);
-        });
-      }
-    }
-  }
+showRefreshLoading() {
+new Future.delayed(const Duration(seconds: 0), () {
+refreshIndicatorKey.currentState.show ().then((e) {});
+return true;
+});
+}
 
-  @protected
-  Future<Null> handleRefresh() async {
-    if (isLoading) {
-      return null;
-    }
-    isLoading = true;
-    page = 1;
-    var res = await requestRefresh();
-    resolveRefreshResult(res);
-    resolveDataResult(res);
-    if (res.next != null) {
-      var resNext = await res.next;
-      resolveRefreshResult(resNext);
-      resolveDataResult(resNext);
-    }
-    isLoading = false;
-    return null;
-  }
+@protected
+resolveRefreshResult(res) {
+if (res != null && res.result) {
+pullLoadWidgetControl.dataList.clear();
+if (isShow) {
+setState(() {
+pullLoadWidgetControl.dataList.addAll(res.data);
+});
+}
+}
+}
 
-  @protected
-  Future<Null> onLoadMore() async {
-    if (isLoading) {
-      return null;
-    }
-    isLoading = true;
-    page++;
-    var res = await requestLoadMore();
-    if (res != null && res.result) {
-      if (isShow) {
-        setState(() {
-          pullLoadWidgetControl.dataList.addAll(res.data);
-        });
-      }
-    }
-    resolveDataResult(res);
-    isLoading = false;
-    return null;
-  }
+@protected
+Future<Null> handleRefresh() async {
+if (isLoading) {
+return null;
+}
+isLoading = true;
+page = 1;
+var res = await requestRefresh();
+resolveRefreshResult(res);
+resolveDataResult(res);
+if (res.next != null) {
+var resNext = await res.next;
+resolveRefreshResult(resNext);
+resolveDataResult(resNext);
+}
+isLoading = false;
+return null;
+}
 
-  @protected
-  resolveDataResult(res) {
-    if (isShow) {
-      setState(() {
-        pullLoadWidgetControl.needLoadMore = (res != null && res.data != null && res.data.length == 20);
-      });
-    }
-  }
+@protected
+Future<Null> onLoadMore() async {
+if (isLoading) {
+return null;
+}
+isLoading = true;
+page++;
+var res = await requestLoadMore();
+if (res != null && res.result) {
+if (isShow) {
+setState(() {
+pullLoadWidgetControl.dataList.addAll(res.data);
+});
+}
+}
+resolveDataResult(res);
+isLoading = false;
+return null;
+}
 
-  @protected
-  clearData() {
-    if (isShow) {
-      setState(() {
-        pullLoadWidgetControl.dataList.clear();
-      });
-    }
-  }
+@protected
+resolveDataResult(res) {
+if (isShow) {
+setState(() {
+pullLoadWidgetControl.needLoadMore = (res != null && res.data != null && res.data.length == 20);
+});
+}
+}
 
-  ///下拉刷新数据
-  @protected
-  requestRefresh() async {}
+@protected
+clearData() {
+if (isShow) {
+setState(() {
+pullLoadWidgetControl.dataList.clear();
+});
+}
+}
 
-  ///上拉更多请求数据
-  @protected
-  requestLoadMore() async {}
+///下拉刷新数据
+@protected
+requestRefresh() async {}
 
-  ///是否需要第一次进入自动刷新
-  @protected
-  bool get isRefreshFirst;
+///上拉更多请求数据
+@protected
+requestLoadMore() async {}
 
-  ///是否需要头部
-  @protected
-  bool get needHeader => false;
+///是否需要第一次进入自动刷新
+@protected
+bool get isRefreshFirst;
 
-  ///是否需要保持
-  @override
-  bool get wantKeepAlive => true;
+///是否需要头部
+@protected
+bool get needHeader => false;
 
-  List get getDataList => dataList;
+///是否需要保持
+@override
+bool get wantKeepAlive => true;
 
-  @override
-  void initState() {
-    isShow = true;
-    super.initState();
-    pullLoadWidgetControl.needHeader = needHeader;
-    pullLoadWidgetControl.dataList = getDataList;
-    if (pullLoadWidgetControl.dataList.length == 0 && isRefreshFirst) {
-      showRefreshLoading();
-    }
-  }
+List get getDataList => dataList;
 
-  @override
-  void dispose() {
-    isShow = false;
-    isLoading = false;
-    super.dispose();
-  }
+@override
+void initState() {
+isShow = true;
+super.initState();
+pullLoadWidgetControl.needHeader = needHeader;
+pullLoadWidgetControl.dataList = getDataList;
+if (pullLoadWidgetControl.dataList.length == 0 && isRefreshFirst) {
+showRefreshLoading();
+}
+}
+
+@override
+void dispose() {
+isShow = false;
+isLoading = false;
+super.dispose();
+}
 }

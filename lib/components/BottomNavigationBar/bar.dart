@@ -47,18 +47,23 @@ class _BarState extends State<Bar> {
       setState(() {
         _currentIndex = index;
         appBarTitle = tabData[index]['text'];
-        _pageController.animateToPage(index, duration: Duration(milliseconds: 1), curve: Curves.bounceIn);
+        _pageController.animateToPage(
+            index, duration: Duration(milliseconds: 1), curve: Curves.bounceIn);
       });
     }
   }
+
   /// 单击提示退出
   Future<bool> _dialogExitApp(BuildContext context) {
     return showDialog(
         context: context,
-        builder: (context) => new AlertDialog(
+        builder: (context) =>
+        new AlertDialog(
           content: new Text('确定要退出应用?'),
           actions: <Widget>[
-            new FlatButton(onPressed: () => Navigator.of(context).pop(false), child: new Text('取消', style: TextStyle(color: Colors.black54),)),
+            new FlatButton(onPressed: () => Navigator.of(context).pop(false),
+                child: new Text(
+                  '取消', style: TextStyle(color: Colors.black54),)),
             new FlatButton(
                 onPressed: () {
                   Navigator.of(context).pop(true);
@@ -67,6 +72,7 @@ class _BarState extends State<Bar> {
           ],
         ));
   }
+
   _buildPopupMenuItem(IconData icon, String title) {
     return Row(children: <Widget>[
       Icon(
@@ -85,7 +91,7 @@ class _BarState extends State<Bar> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return WillPopScope(
-        child:       Scaffold(
+        child: Scaffold(
             appBar: AppBar(
               title: Text(appBarTitle),
               elevation: 0.0,

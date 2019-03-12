@@ -17,13 +17,14 @@ class PullLoadWidget extends StatefulWidget {
 
   final Key refreshKey;
 
-  PullLoadWidget(
-      this.control, this.itemBuilder, this.onRefresh, this.onLoadMore,
+  PullLoadWidget(this.control, this.itemBuilder, this.onRefresh,
+      this.onLoadMore,
       {this.refreshKey});
 
   @override
-  _PullLoadWidgetState createState() => _PullLoadWidgetState(this.control,
-      this.itemBuilder, this.onRefresh, this.onLoadMore, this.refreshKey);
+  _PullLoadWidgetState createState() =>
+      _PullLoadWidgetState(this.control,
+          this.itemBuilder, this.onRefresh, this.onLoadMore, this.refreshKey);
 }
 
 class _PullLoadWidgetState extends State<PullLoadWidget> {
@@ -105,12 +106,14 @@ class _PullLoadWidgetState extends State<PullLoadWidget> {
   @override
   Widget build(BuildContext context) {
     return new RefreshIndicator(
+
       ///GlobalKey，用户外部获取RefreshIndicator的State，做显示刷新
       key: refreshKey,
 
       ///下拉刷新触发，返回的是一个Future
       onRefresh: onRefresh,
       child: new ListView.builder(
+
         ///保持ListView任何情况都能滚动，解决在RefreshIndicator的兼容问题。
         physics: const AlwaysScrollableScrollPhysics(),
 
@@ -131,7 +134,10 @@ class _PullLoadWidgetState extends State<PullLoadWidget> {
   ///空页面
   Widget _buildEmpty() {
     return new Container(
-      height: MediaQuery.of(context).size.height - 100,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height - 100,
       child: new Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -155,37 +161,41 @@ class _PullLoadWidgetState extends State<PullLoadWidget> {
     ///是否需要显示上拉加载更多的loading
     Widget bottomWidget = (control.needLoadMore)
         ? new Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-                ///loading框
-                new SpinKitRotatingCircle(
-                  color: Theme.of(context).primaryColor,
-                  size: 25.0,
-                ),
-                new Container(
-                  width: 5.0,
-                ),
-                ///加载中文本
-                new Text(
-                  '正在加载中',
-                  style: TextStyle(
-                    color: Color(0xFF121917),
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              ])
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
 
-        /// 不需要加载
-        : new Container(
-            child: new Text(
-              '已经到底了',
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 12.0,
-              ),
+          ///loading框
+          new SpinKitRotatingCircle(
+            color: Theme
+                .of(context)
+                .primaryColor,
+            size: 25.0,
+          ),
+          new Container(
+            width: 5.0,
+          ),
+
+          ///加载中文本
+          new Text(
+            '正在加载中',
+            style: TextStyle(
+              color: Color(0xFF121917),
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
             ),
-          );
+          )
+        ])
+
+    /// 不需要加载
+        : new Container(
+      child: new Text(
+        '已经到底了',
+        style: TextStyle(
+          color: Colors.grey,
+          fontSize: 12.0,
+        ),
+      ),
+    );
     return new Padding(
       padding: const EdgeInsets.all(20.0),
       child: new Center(

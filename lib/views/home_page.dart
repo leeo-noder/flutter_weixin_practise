@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weixin/model/conversation.dart'
     show
-        Conversation,
-        mockConversation,
-        preConversation,
-        ConversationControlModel,
-        Manager;
+    Conversation,
+    mockConversation,
+    preConversation,
+    ConversationControlModel,
+    Manager;
 import 'package:flutter_weixin/utils/net_utils.dart';
 import 'package:flutter_weixin/components/PullLoadWidget.dart';
 import 'package:flutter_weixin/components/ListState.dart';
@@ -24,13 +24,14 @@ class _HomePageState extends State<HomePage>
         ListState<HomePage>,
         WidgetsBindingObserver {
   ConversationControlModel _conversationControlModel =
-      new ConversationControlModel();
+  new ConversationControlModel();
   Manager manager = new Manager();
+
   @override
   Widget build(BuildContext context) {
     return PullLoadWidget(
       pullLoadWidgetControl,
-      (BuildContext context, int index) {
+          (BuildContext context, int index) {
         if (index == 0) {
           return _DeviceInfoItem();
         }
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage>
     await getIndexListData(page);
     setState(() {
       pullLoadWidgetControl.needLoadMore =
-          (mockConversation != null && mockConversation.length == 14);
+      (mockConversation != null && mockConversation.length == 14);
     });
     isLoading = false;
     return null;
@@ -76,7 +77,8 @@ class _HomePageState extends State<HomePage>
     pullLoadWidgetControl.dataList = mockConversation;
     _conversationControlModel.clear();
     getIndexListData(1);
-    setState(() => {pullLoadWidgetControl.needLoadMore = true});
+    setState(() => {pullLoadWidgetControl.needLoadMore = true
+    });
     super.didChangeDependencies();
   }
 
@@ -91,7 +93,7 @@ class _HomePageState extends State<HomePage>
     setState(() {
       // 3次加载数据
       pullLoadWidgetControl.needLoadMore =
-          (mockConversation != null && mockConversation.length < 25);
+      (mockConversation != null && mockConversation.length < 25);
     });
     isLoading = false;
     return null;
@@ -114,16 +116,15 @@ class _HomePageState extends State<HomePage>
     manager.setSate(true);
     try {
       var response =
-          await NetUtils.get('https://randomuser.me/api/?results=10');
+      await NetUtils.get('https://randomuser.me/api/?results=10');
       setState(() {
         for (int i = 0; i < response['results'].length; i++) {
           response['results'][i]['unReadMsgCount'] =
-              i == Random().nextInt(10) ? Random().nextInt(20) : 0;
+          i == Random().nextInt(10) ? Random().nextInt(20) : 0;
           mockConversation.add(Conversation.fromJson(response['results'][i]));
           _conversationControlModel
               .insert(Conversation.fromJson(response['results'][i]))
-              .then((result) {
-          });
+              .then((result) {});
         }
       });
     } catch (e) {
@@ -238,28 +239,29 @@ class _ConversationItem extends StatelessWidget {
           ),
           Expanded(
               child: Container(
-            decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(color: Color(0xffd9d9d9), width: .5))),
-            padding: EdgeInsets.only(top: 14.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  conversation.title,
-                  style: TextStyle(fontSize: 17.5),
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                            color: Color(0xffd9d9d9), width: .5))),
+                padding: EdgeInsets.only(top: 14.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      conversation.title,
+                      style: TextStyle(fontSize: 17.5),
+                    ),
+                    Container(
+                      height: 2.0,
+                    ),
+                    Text(
+                      conversation.describtion,
+                      maxLines: 1,
+                      style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                    )
+                  ],
                 ),
-                Container(
-                  height: 2.0,
-                ),
-                Text(
-                  conversation.describtion,
-                  maxLines: 1,
-                  style: TextStyle(color: Colors.grey, fontSize: 13.0),
-                )
-              ],
-            ),
-          )),
+              )),
           Container(
               decoration: BoxDecoration(
                   border: Border(

@@ -19,18 +19,18 @@ var categoryHandler = new Handler(
 
 var widgetNotFoundHandler = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  return null;
-});
+      return null;
+    });
 
 var fullScreenCodeDialog = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  String path = params['filePath']?.first;
-  return null;
-});
+      String path = params['filePath']?.first;
+      return null;
+    });
 
 var webViewPageHand = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  String title = params['title']?.first;
-  String url = params['url']?.first;
-  return null;
-});
+      String title = params['title']?.first;
+      String url = params['url']?.first;
+      return null;
+    });

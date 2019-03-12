@@ -3,16 +3,15 @@ import 'package:flutter_weixin/utils/util.dart';
 import 'package:flutter_weixin/utils/sql.dart';
 
 class Conversation {
-  const Conversation(
-      {@required this.avatar,
-      @required this.title,
-      @required this.createAt,
-      this.isMute: false,
-      this.titleColor: 0xff353535,
-      this.describtion,
-      this.unReadMsgCount: 0,
-      this.displayDot: false,
-      this.isNetwork: false})
+  const Conversation({@required this.avatar,
+    @required this.title,
+    @required this.createAt,
+    this.isMute: false,
+    this.titleColor: 0xff353535,
+    this.describtion,
+    this.unReadMsgCount: 0,
+    this.displayDot: false,
+    this.isNetwork: false})
       : assert(avatar != null),
         assert(title != null),
         assert(createAt != null);
@@ -47,16 +46,18 @@ class ConversationControlModel {
   }
 
   Future clear() {
-   return sql.clearTable(table);
+    return sql.clearTable(table);
   }
+
   Future insert(Conversation conversation) {
-    return sql.insert({'avatar': conversation.avatar, 'name': conversation.title});
+    return sql.insert(
+        {'avatar': conversation.avatar, 'name': conversation.title});
   }
 
   Future<List<Conversation>> getAllConversation() async {
     List list = await sql.getByCondition();
     List<Conversation> resultList = [];
-    list.forEach((item){
+    list.forEach((item) {
       resultList.add(Conversation.fromJson(item));
     });
     return resultList;
@@ -88,24 +89,30 @@ List<Conversation> preConversation = [
       describtion: '月度账单提醒',
       unReadMsgCount: 1),
 ];
+
 class Manager {
   // 工厂模式
-  factory Manager() =>_getInstance();
+  factory Manager() => _getInstance();
+
   static Manager get instance => _getInstance();
   static Manager _instance;
   bool _hasNewData = false;
+
   Manager._internal() {
     // 初始化
   }
+
   static Manager _getInstance() {
     if (_instance == null) {
       _instance = new Manager._internal();
     }
     return _instance;
   }
+
   setSate(bool hasNewData) {
     this._hasNewData = hasNewData;
   }
+
   getState() {
     return this._hasNewData;
   }
