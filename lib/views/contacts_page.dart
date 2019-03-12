@@ -159,7 +159,7 @@ class _ContactsPageState extends State<ContactsPage> {
                       if (_letterPosMap[currentLetter] != null) {
                         _scrollController.animateTo(_letterPosMap[currentLetter],
                             duration: Duration(milliseconds: 100),
-                            curve: Curves.easeIn);
+                            curve: Curves.decelerate);
                       }
                     });
                   },
@@ -170,7 +170,7 @@ class _ContactsPageState extends State<ContactsPage> {
                       if (_letterPosMap[currentLetter] != null) {
                         _scrollController.animateTo(_letterPosMap[currentLetter],
                             duration: Duration(milliseconds: 100),
-                            curve: Curves.easeIn);
+                            curve: Curves.fastOutSlowIn);
                       }
                     });
                   },

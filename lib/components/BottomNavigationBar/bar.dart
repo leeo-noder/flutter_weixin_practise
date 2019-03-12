@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_weixin/common/style/Style.dart';
 import 'package:flutter_weixin/views/home_page.dart';
 import 'package:flutter_weixin/views/contacts_page.dart';
+import 'package:flutter_weixin/views/find_page.dart';
 
 class Bar extends StatefulWidget {
   Bar({Key key}) : super(key: key);
@@ -33,9 +34,7 @@ class _BarState extends State<Bar> {
     pages = [
       HomePage(),
       ContactsPage(),
-      Container(
-        color: Colors.orange,
-      ),
+      FindPage(),
       Container(
         color: Colors.pinkAccent,
       )

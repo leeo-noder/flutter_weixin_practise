@@ -8,3 +8,8 @@ A copy of WeiXin Flutter application.
 <th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/weixin_contact.jpg" width="320"/></th>
 </tr>
 </table>
+<table>
+<tr>
+<th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/wechat_find.jpg" width="320"/></th>
+</tr>
+</table>

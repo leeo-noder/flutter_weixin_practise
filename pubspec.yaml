@@ -88,6 +88,16 @@ flutter:
     - static/images/contact_new_friend.png
     - static/images/contact_public_number.png
     - static/images/contact_tag.png
+    - static/images/find_friend_circle.png
+    - static/images/find_scan.png
+    - static/images/find_shake.png
+    - static/images/find_show.png
+    - static/images/find_sou.png
+    - static/images/find_nearby.png
+    - static/images/find_bottle.png
+    - static/images/find_shop.png
+    - static/images/find_game.png
+    - static/images/find_xcx.png
   fonts:
     - family: wxIconFont
       fonts:
