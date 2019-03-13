@@ -67,7 +67,6 @@ class _FindItem extends StatelessWidget {
           ),
         ),
         Container(
-
           decoration: find.isWhite ? BoxDecoration(
               border: Border(
                   bottom: BorderSide(color: Color(0xffd9d9d9), width: .3))): null,

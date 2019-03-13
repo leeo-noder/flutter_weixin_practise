@@ -44,6 +44,9 @@ class ICons {
   static const IconData XIANSHIQI = const IconData(
       0xe61d, fontFamily: ICons.FONT_FAMILY);
 
+  static const IconData QR = const IconData(
+      0xe646, fontFamily: ICons.FONT_FAMILY);
+
   static const IconData HOME = const IconData(
       0xe65d, fontFamily: ICons.FONT_FAMILY);
   static const IconData HOME_CHECKED = const IconData(

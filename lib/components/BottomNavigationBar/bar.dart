@@ -22,7 +22,7 @@ class Bar extends StatefulWidget {
 
 class _BarState extends State<Bar> {
   PageController _pageController;
-  String appBarTitle = tabData[0]['text'];
+  static String appBarTitle = tabData[0]['text'];
   static List tabData = [
     {'text': '微信', 'icon': new Icon(ICons.HOME)},
     {'text': '通讯录', 'icon': new Icon(ICons.ADDRESS_BOOK)},
@@ -32,26 +32,22 @@ class _BarState extends State<Bar> {
   List<Widget> pages = [];
   int _currentIndex = 0;
   StreamSubscription stream;
-  Color themeDef = Color(0xffEDEDED);
+  static Color themeDef = Color(0xffEDEDED);
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _pageController = PageController(initialPage: _currentIndex);
-    pages = [
-      HomePage(),
-      ContactsPage(),
-      FindPage(),
-      MyPage()
-    ];
-    stream = ThemeChangeHandle
-        .eventBus
+    pages = [HomePage(), ContactsPage(), FindPage(), MyPage()];
+    stream = ThemeChangeHandle.eventBus
         .on<ThemeChangeEvent>()
         .listen((ThemeChangeEvent onData) {
       print('监听改变主题事件=========');
       this.changeTheme(onData);
     });
   }
+
   /**
    * 刷新主题样式
    */
@@ -61,16 +57,18 @@ class _BarState extends State<Bar> {
       themeDef = Color(onData.color);
     });
   }
+
   void _onItemTapped(int index) {
     if (mounted) {
       setState(() {
         _currentIndex = index;
         appBarTitle = tabData[index]['text'];
-        _pageController.animateToPage(
-            index, duration: Duration(milliseconds: 1), curve: Curves.bounceIn);
+        _pageController.animateToPage(index,
+            duration: Duration(milliseconds: 1), curve: Curves.bounceIn);
       });
     }
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -79,27 +77,31 @@ class _BarState extends State<Bar> {
       stream = null;
     }
   }
+
   /// 单击提示退出
   Future<bool> _dialogExitApp(BuildContext context) {
     return showDialog(
         context: context,
-        builder: (context) =>
-        new AlertDialog(
-          content: new Text('确定要退出应用?'),
-          actions: <Widget>[
-            new FlatButton(onPressed: () => Navigator.of(context).pop(false),
-                child: new Text(
-                  '取消', style: TextStyle(color: Colors.black54),)),
-            new FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop(true);
-                },
-                child: new Text('确定', style: TextStyle(color: Colors.black54)))
-          ],
-        ));
+        builder: (context) => new AlertDialog(
+              content: new Text('确定要退出应用?'),
+              actions: <Widget>[
+                new FlatButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: new Text(
+                      '取消',
+                      style: TextStyle(color: Colors.black54),
+                    )),
+                new FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    },
+                    child:
+                        new Text('确定', style: TextStyle(color: Colors.black54)))
+              ],
+            ));
   }
 
-  _buildPopupMenuItem(IconData icon, String title) {
+  static _buildPopupMenuItem(IconData icon, String title) {
     return Row(children: <Widget>[
       Icon(
         icon,
@@ -113,37 +115,38 @@ class _BarState extends State<Bar> {
     ]);
   }
 
+  Widget defaultAppBar = AppBar(
+    backgroundColor: themeDef,
+    title: Text(appBarTitle),
+    elevation: 0.0,
+    actions: <Widget>[
+      IconButton(icon: Icon(Icons.search), onPressed: () {}),
+      Container(width: 14.0),
+      PopupMenuButton(
+        itemBuilder: (BuildContext context) {
+          return <PopupMenuItem<String>>[
+            PopupMenuItem(
+              child: _buildPopupMenuItem(ICons.HOME_CHECKED, '发起群聊'),
+              value: "1",
+            ),
+            PopupMenuItem(
+              child: _buildPopupMenuItem(ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
+              value: "2",
+            )
+          ];
+        },
+        icon: Icon(Icons.add_circle_outline),
+        onSelected: (String selected) {},
+      ),
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return WillPopScope(
         child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: themeDef,
-              title: Text(appBarTitle),
-              elevation: 0.0,
-              actions: <Widget>[
-                IconButton(icon: Icon(Icons.search), onPressed: () {}),
-                Container(width: 14.0),
-                PopupMenuButton(
-                  itemBuilder: (BuildContext context) {
-                    return <PopupMenuItem<String>>[
-                      PopupMenuItem(
-                        child: _buildPopupMenuItem(ICons.HOME_CHECKED, '发起群聊'),
-                        value: "1",
-                      ),
-                      PopupMenuItem(
-                        child: _buildPopupMenuItem(
-                            ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
-                        value: "2",
-                      )
-                    ];
-                  },
-                  icon: Icon(Icons.add_circle_outline),
-                  onSelected: (String selected) {},
-                ),
-              ],
-            ),
+            appBar: _currentIndex != 3 ? defaultAppBar : null,
             body: PageView.builder(
               itemBuilder: (BuildContext context, int index) {
                 return pages[index];
@@ -154,7 +157,7 @@ class _BarState extends State<Bar> {
                 setState(() {
                   appBarTitle = tabData[index]['text'];
                   _currentIndex = index;
-                  if(index == 3) {
+                  if (index == 3) {
                     ThemeChangeHandle.themeChangeHandle(0xffFFFFFF);
                   } else {
                     ThemeChangeHandle.themeChangeHandle(0xffEDEDED);

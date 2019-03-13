@@ -100,6 +100,12 @@ flutter:
     - static/images/find_shop.png
     - static/images/find_game.png
     - static/images/find_xcx.png
+    - static/images/me_wallet.png
+    - static/images/me_college.png
+    - static/images/me_gallary.png
+    - static/images/me_setting.png
+    - static/images/me_face.png
+    - static/images/me_pay.png
   fonts:
     - family: wxIconFont
       fonts:
