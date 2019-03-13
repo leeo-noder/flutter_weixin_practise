@@ -2,10 +2,25 @@ import 'package:flutter/material.dart';
 
 class Style {
   static const int primaryValue = 0xffEDEDED;
-  static const int primaryLightValue = 0xFF42464b;
+  static const int primaryLightValue = 0xFFFFFFFF;
   static const int primaryDarkValue = 0xFF121917;
-  static const MaterialColor primarySwatch = const MaterialColor(
+  static const MaterialColor primarySwatchDefault = const MaterialColor(
     primaryValue,
+    const <int, Color>{
+      50: const Color(primaryLightValue),
+      100: const Color(primaryLightValue),
+      200: const Color(primaryLightValue),
+      300: const Color(primaryLightValue),
+      400: const Color(primaryLightValue),
+      500: const Color(primaryValue),
+      600: const Color(primaryDarkValue),
+      700: const Color(primaryDarkValue),
+      800: const Color(primaryDarkValue),
+      900: const Color(primaryDarkValue),
+    },
+  );
+  static const MaterialColor primarySwatch = const MaterialColor(
+    primaryLightValue,
     const <int, Color>{
       50: const Color(primaryLightValue),
       100: const Color(primaryLightValue),

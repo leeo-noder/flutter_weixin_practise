@@ -5,7 +5,7 @@ import 'package:flutter_weixin/main.dart';
 // app的首页
 var homeHandler = new Handler(
   handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-    return new MyHomePage();
+    return null;
   },
 );
 

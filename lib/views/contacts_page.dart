@@ -44,16 +44,7 @@ const INDEX_BAR_WORDS = [
 ];
 
 class _ContactsPageState extends State<ContactsPage> {
-  _ContactsPageState() {
-    /*   for (int i = 0; i < INDEX_BAR_WORDS.length; i++) {
-      _letterMap.addAll({INDEX_BAR_WORDS[i]
-      },)
-    }*/
-  }
-
-  ConversationControlModel _conversationControlModel =
-      new ConversationControlModel();
-  Manager manager = new Manager();
+  ConversationControlModel _conversationControlModel = new ConversationControlModel();
   ScrollController _scrollController;
   static Map _letterPosMap = {
     INDEX_BAR_WORDS[0]: 0.0,
@@ -64,12 +55,13 @@ class _ContactsPageState extends State<ContactsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     _scrollController = new ScrollController();
-    if (manager.getState()) {
+    if (Manager().getState()) {
       mockContact.clear();
       _letterPosMap = {INDEX_BAR_WORDS[0]: 0.0, INDEX_BAR_WORDS[1]: 230.0};
       _conversationControlModel.sql.getAll().then((result) {
-        manager.setSate(false);
+        Manager().setSate(false);
         List<Contact> arr = [];
         result.forEach((item) {
           arr.add(Contact(

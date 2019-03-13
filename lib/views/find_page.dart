@@ -9,6 +9,11 @@ class FindPage extends StatefulWidget {
 
 class _FindPageState extends State<FindPage> {
   @override
+  void setState(fn) {
+    // TODO: implement setState
+    super.setState(fn);
+  }
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: ListView.builder(

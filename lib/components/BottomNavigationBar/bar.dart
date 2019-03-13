@@ -3,6 +3,12 @@ import 'package:flutter_weixin/common/style/Style.dart';
 import 'package:flutter_weixin/views/home_page.dart';
 import 'package:flutter_weixin/views/contacts_page.dart';
 import 'package:flutter_weixin/views/find_page.dart';
+import 'package:flutter_weixin/views/my_page.dart';
+import 'package:flutter_weixin/common/net/Code.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:async';
+import 'package:flutter_weixin/common/event/ThemeChangeEvent.dart'
+    show ThemeChangeEvent, ThemeChangeHandle;
 
 class Bar extends StatefulWidget {
   Bar({Key key}) : super(key: key);
@@ -25,7 +31,8 @@ class _BarState extends State<Bar> {
   ];
   List<Widget> pages = [];
   int _currentIndex = 0;
-
+  StreamSubscription stream;
+  Color themeDef = Color(0xffEDEDED);
   @override
   void initState() {
     // TODO: implement initState
@@ -35,12 +42,25 @@ class _BarState extends State<Bar> {
       HomePage(),
       ContactsPage(),
       FindPage(),
-      Container(
-        color: Colors.pinkAccent,
-      )
+      MyPage()
     ];
+    stream = ThemeChangeHandle
+        .eventBus
+        .on<ThemeChangeEvent>()
+        .listen((ThemeChangeEvent onData) {
+      print('监听改变主题事件=========');
+      this.changeTheme(onData);
+    });
   }
-
+  /**
+   * 刷新主题样式
+   */
+  void changeTheme(ThemeChangeEvent onData) {
+    setState(() {
+      print(onData);
+      themeDef = Color(onData.color);
+    });
+  }
   void _onItemTapped(int index) {
     if (mounted) {
       setState(() {
@@ -51,7 +71,14 @@ class _BarState extends State<Bar> {
       });
     }
   }
-
+  @override
+  void dispose() {
+    super.dispose();
+    if (stream != null) {
+      stream.cancel();
+      stream = null;
+    }
+  }
   /// 单击提示退出
   Future<bool> _dialogExitApp(BuildContext context) {
     return showDialog(
@@ -92,6 +119,7 @@ class _BarState extends State<Bar> {
     return WillPopScope(
         child: Scaffold(
             appBar: AppBar(
+              backgroundColor: themeDef,
               title: Text(appBarTitle),
               elevation: 0.0,
               actions: <Widget>[
@@ -126,6 +154,11 @@ class _BarState extends State<Bar> {
                 setState(() {
                   appBarTitle = tabData[index]['text'];
                   _currentIndex = index;
+                  if(index == 3) {
+                    ThemeChangeHandle.themeChangeHandle(0xffFFFFFF);
+                  } else {
+                    ThemeChangeHandle.themeChangeHandle(0xffEDEDED);
+                  }
                 });
               },
             ),
@@ -163,4 +196,28 @@ class _BarState extends State<Bar> {
           return _dialogExitApp(context);
         });
   }
+
+/*  errorHandleFunction(int code, message) {
+    switch (code) {
+      case Code.NETWORK_ERROR:
+        Fluttertoast.showToast(msg: '网络错误');
+        break;
+      case 401:
+        Fluttertoast.showToast(msg: '[401错误可能: 未授权 \\ 授权登录失败 \\ 登录过期]');
+        break;
+      case 403:
+        Fluttertoast.showToast(msg: '403权限错误');
+        break;
+      case 404:
+        Fluttertoast.showToast(msg: '404错误');
+        break;
+      case Code.NETWORK_TIMEOUT:
+      //超时
+        Fluttertoast.showToast(msg: '请求超时');
+        break;
+      default:
+        Fluttertoast.showToast(msg: '其他异常');
+        break;
+    }
+  }*/
 }
