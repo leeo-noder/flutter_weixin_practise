@@ -70,7 +70,7 @@ class _FindItem extends StatelessWidget {
           decoration: find.isWhite ? BoxDecoration(
               border: Border(
                   bottom: BorderSide(color: Color(0xffd9d9d9), width: .3))): null,
-          padding: EdgeInsets.only(top: 15.0,bottom: 15.0, right: 10.0),
+          padding: EdgeInsets.only(top: 14.0,bottom: 15.0, right: 10.0),
           child:
           Icon(Icons.chevron_right, color: Colors.grey,),
         )
