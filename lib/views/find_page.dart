@@ -13,13 +13,14 @@ class _FindPageState extends State<FindPage> {
     // TODO: implement setState
     super.setState(fn);
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ListView.builder(
           itemCount: mockContact.length,
           itemBuilder: (BuildContext context, int index) {
-           return _FindItem(
+            return _FindItem(
               find: mockContact[index],
             );
           }),
@@ -52,42 +53,56 @@ class _FindItem extends StatelessWidget {
         userImage,
         Expanded(
           child: Container(
-            decoration: find.isWhite ? BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(color: Color(0xffd9d9d9), width: .3))): null,
+            decoration: find.isWhite
+                ? BoxDecoration(
+                    border: Border(
+                        bottom:
+                            BorderSide(color: Color(0xffd9d9d9), width: .3)))
+                : null,
             padding: EdgeInsets.only(top: 16.0),
-            child: Container(
-              // alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(bottom: 15.0),
-              child: Text(
-                find.name,
-                style: TextStyle(fontSize: 15.0),
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 15.0),
+                    child: Text(
+                      find.name,
+                      style: TextStyle(fontSize: 15.0),
+                    ),
+                  ),
+                ),
+                Container(
+                  // padding: EdgeInsets.only(top: 16.0, right: 10.0),
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 15.0, right: 10.0),
+                    child: Icon(
+                      Icons.chevron_right,
+                      color: Colors.grey,
+                      // size: 22.0,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-        Container(
-          decoration: find.isWhite ? BoxDecoration(
-              border: Border(
-                  bottom: BorderSide(color: Color(0xffd9d9d9), width: .3))): null,
-          padding: EdgeInsets.only(top: 14.0,bottom: 15.0, right: 10.0),
-          child:
-          Icon(Icons.chevron_right, color: Colors.grey,),
-        )
       ],
     );
     return Container(
-      height: find.isWhite? 85 : 55,
-      child: find.isWhite ? Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Container(
-            color: Color(0xffEDEDED),
-            height: 20.0,
-          ),
-          itemRow,
-        ],
-      ): itemRow,
+      height: find.isWhite ? 85 : 55,
+      child: find.isWhite
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Container(
+                  color: Color(0xffEDEDED),
+                  height: 20.0,
+                ),
+                itemRow,
+              ],
+            )
+          : itemRow,
     );
   }
 }

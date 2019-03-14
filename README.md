@@ -18,6 +18,6 @@ A copy of WeiXin Flutter application.
 ## android端下载地址
 <table>
 <tr>
-<th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/xsG1.png" width="320"/></th>
+<th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/xsG11.png" width="320"/></th>
 </tr>
 </table>

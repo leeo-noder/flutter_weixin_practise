@@ -41,30 +41,36 @@ class _MyPageState extends State<MyPage> {
               }),
           Expanded(
             child: Container(
-              decoration: !isEnd ? BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(color: Color(0xffd9d9d9), width: .3))): null,
+              decoration: !isEnd
+                  ? BoxDecoration(
+                      border: Border(
+                          bottom:
+                              BorderSide(color: Color(0xffd9d9d9), width: .3)))
+                  : null,
               padding: EdgeInsets.only(top: 16.0),
-              child: Container(
-                // alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(bottom: 15.0),
-                child: Text(
-                  title,
-                  style: TextStyle(fontSize: 15.0),
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.only(bottom: 15.0),
+                    child: Text(
+                      title,
+                      style: TextStyle(fontSize: 15.0),
+                    ),
+                  ),
+                  Container(
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 15.0, right: 10.0),
+                        child: Icon(
+                          Icons.chevron_right,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ),
           ),
-          Container(
-            decoration: !isEnd ? BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(color: Color(0xffd9d9d9), width: .3))): null,
-            padding: EdgeInsets.only(top: 14.0, bottom: 15.0, right: 10.0),
-            child: Icon(
-              Icons.chevron_right,
-              color: Colors.grey,
-            ),
-          )
         ],
       );
     }
@@ -104,8 +110,8 @@ class _MyPageState extends State<MyPage> {
                   Row(
                     children: <Widget>[
                       Container(
-                        padding:
-                        EdgeInsets.only(top: 65.0, bottom: 15.0, right: 10.0),
+                        padding: EdgeInsets.only(
+                            top: 65.0, bottom: 15.0, right: 10.0),
                         child: Icon(
                           ICons.QR,
                           color: Colors.grey,
@@ -113,8 +119,8 @@ class _MyPageState extends State<MyPage> {
                         ),
                       ),
                       Container(
-                        padding:
-                        EdgeInsets.only(top: 65.0, bottom: 15.0, right: 10.0),
+                        padding: EdgeInsets.only(
+                            top: 65.0, bottom: 15.0, right: 10.0),
                         child: Icon(
                           Icons.chevron_right,
                           color: Colors.grey,
@@ -122,7 +128,6 @@ class _MyPageState extends State<MyPage> {
                       )
                     ],
                   )
-
                 ],
               ),
             ),
