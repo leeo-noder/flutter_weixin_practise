@@ -14,3 +14,10 @@ A copy of WeiXin Flutter application.
 <th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/wechat_me.jpg" width="320"/></th>
 </tr>
 </table>
+
+## android端下载地址
+<table>
+<tr>
+<th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/xsG1.png" width="320"/></th>
+</tr>
+</table>
