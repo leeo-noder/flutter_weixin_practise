@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter WeiXin Demo',
-      theme: ThemeData(primaryColor: themeDef),
+      theme: ThemeData(primaryColor: themeDef, cardColor: Color(0xff4C4C4C)),
       home: new Scaffold(body: Bar()),
       onGenerateRoute: Application.router.generator,
     );

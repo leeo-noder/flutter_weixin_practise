@@ -4,8 +4,6 @@ import 'package:flutter_weixin/views/home_page.dart';
 import 'package:flutter_weixin/views/contacts_page.dart';
 import 'package:flutter_weixin/views/find_page.dart';
 import 'package:flutter_weixin/views/my_page.dart';
-import 'package:flutter_weixin/common/net/Code.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:async';
 import 'package:flutter_weixin/common/event/ThemeChangeEvent.dart'
     show ThemeChangeEvent, ThemeChangeHandle;
@@ -102,17 +100,17 @@ class _BarState extends State<Bar> {
   }
 
   static _buildPopupMenuItem(IconData icon, String title) {
-    return Row(children: <Widget>[
-      Icon(
-        icon,
-        color: Color(0xFFFFFFFF),
-      ),
-      Container(width: 12.0),
-      Text(
-        title,
-        style: TextStyle(color: Color(0xFFFFFFFF)),
-      )
-    ]);
+    return  Row(children: <Widget>[
+        Icon(
+          icon,
+          color: Color(0xFFFFFFFF),
+        ),
+        Container(width: 12.0),
+        Text(
+          title,
+          style: TextStyle(color: Color(0xFFFFFFFF)),
+        )
+      ]);
   }
 
   Widget defaultAppBar = AppBar(
@@ -124,17 +122,20 @@ class _BarState extends State<Bar> {
       Container(width: 14.0),
       PopupMenuButton(
         itemBuilder: (BuildContext context) {
-          return <PopupMenuItem<String>>[
+          return <PopupMenuEntry<String>>[
             PopupMenuItem(
               child: _buildPopupMenuItem(ICons.HOME_CHECKED, '发起群聊'),
               value: "1",
             ),
+            PopupMenuDivider(height: 1.0,),
             PopupMenuItem(
               child: _buildPopupMenuItem(ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
               value: "2",
             )
           ];
         },
+        padding: EdgeInsets.only(top: 0.0),
+        elevation: 5.0,
         icon: Icon(Icons.add_circle_outline),
         onSelected: (String selected) {},
       ),
