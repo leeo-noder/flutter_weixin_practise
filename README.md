@@ -2,6 +2,10 @@
 
 A copy of WeiXin Flutter application.
 用Flutter仿的微信UI
+
+![image](https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/main.gif)
+
+## 具体页面截图如下：
 <table>
 <tr>
 <th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/wechat_home.jpg" width="320"/></th>
