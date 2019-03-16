@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weixin/components/UserIconWidget.dart';
 import 'package:flutter_weixin/common/style/Style.dart' show ICons;
+import 'package:flutter_weixin/views/my_info_page.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -81,54 +82,66 @@ class _MyPageState extends State<MyPage> {
           children: <Widget>[
             Container(
               height: 180.0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  userImage,
-                  Expanded(
-                      child: Container(
-                    padding: EdgeInsets.only(top: 83.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+              child:
+               RawMaterialButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    new MaterialPageRoute(
+                      builder: (c) {
+                        return new MyInfoPage();
+                      },
+                    ),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    userImage,
+                    Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(top: 83.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'leeo',
+                                style: TextStyle(
+                                    fontSize: 22.5, fontWeight: FontWeight.bold),
+                              ),
+                              Container(
+                                height: 2.0,
+                              ),
+                              Text(
+                                '微信号：zwleee',
+                                maxLines: 1,
+                                style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                              )
+                            ],
+                          ),
+                        )),
+                    Row(
                       children: <Widget>[
-                        Text(
-                          'leeo',
-                          style: TextStyle(
-                              fontSize: 22.5, fontWeight: FontWeight.bold),
+                        Container(
+                          padding: EdgeInsets.only(
+                              top: 65.0, bottom: 15.0, right: 10.0),
+                          child: Icon(
+                            ICons.QR,
+                            color: Colors.grey,
+                            size: 15.0,
+                          ),
                         ),
                         Container(
-                          height: 2.0,
-                        ),
-                        Text(
-                          '微信号：zwleee',
-                          maxLines: 1,
-                          style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                          padding: EdgeInsets.only(
+                              top: 65.0, bottom: 15.0, right: 10.0),
+                          child: Icon(
+                            Icons.chevron_right,
+                            color: Colors.grey,
+                          ),
                         )
                       ],
-                    ),
-                  )),
-                  Row(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(
-                            top: 65.0, bottom: 15.0, right: 10.0),
-                        child: Icon(
-                          ICons.QR,
-                          color: Colors.grey,
-                          size: 15.0,
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            top: 65.0, bottom: 15.0, right: 10.0),
-                        child: Icon(
-                          Icons.chevron_right,
-                          color: Colors.grey,
-                        ),
-                      )
-                    ],
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
             Column(
