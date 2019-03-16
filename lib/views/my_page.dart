@@ -85,7 +85,7 @@ class _MyPageState extends State<MyPage> {
               child:
                RawMaterialButton(
                 onPressed: () {
-                  Navigator.of(context).push(
+                  Navigator.push(context,
                     new MaterialPageRoute(
                       builder: (c) {
                         return new MyInfoPage();
