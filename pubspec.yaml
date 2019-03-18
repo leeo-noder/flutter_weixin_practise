@@ -106,6 +106,7 @@ flutter:
     - static/images/me_setting.png
     - static/images/me_face.png
     - static/images/me_pay.png
+    - static/images/chat_bg.png
   fonts:
     - family: wxIconFont
       fonts:

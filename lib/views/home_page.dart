@@ -11,6 +11,7 @@ import 'package:flutter_weixin/components/PullLoadWidget.dart';
 import 'package:flutter_weixin/components/ListState.dart';
 import 'package:flutter_weixin/components/UserIconWidget.dart';
 import 'package:flutter_weixin/common/style/Style.dart';
+import 'package:flutter_weixin/views/home_chat_page.dart';
 import 'dart:math';
 
 class HomePage extends StatefulWidget {
@@ -234,6 +235,12 @@ class _ConversationItem extends StatelessWidget {
 
     return Container(
       height: 75,
+      child:
+      RawMaterialButton(onPressed: (){
+        Navigator.push(context, MaterialPageRoute(builder: (c) {
+          return new HomeChatPage(conversation: conversation);
+        }));
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -246,28 +253,28 @@ class _ConversationItem extends StatelessWidget {
           ),
           Expanded(
               child: Container(
-            decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(color: Color(0xffd9d9d9), width: .5))),
-            padding: EdgeInsets.only(top: 14.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  conversation.title,
-                  style: TextStyle(fontSize: 17.5),
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(color: Color(0xffd9d9d9), width: .5))),
+                padding: EdgeInsets.only(top: 14.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      conversation.title,
+                      style: TextStyle(fontSize: 17.5),
+                    ),
+                    Container(
+                      height: 2.0,
+                    ),
+                    Text(
+                      conversation.describtion,
+                      maxLines: 1,
+                      style: TextStyle(color: Colors.grey, fontSize: 13.0),
+                    )
+                  ],
                 ),
-                Container(
-                  height: 2.0,
-                ),
-                Text(
-                  conversation.describtion,
-                  maxLines: 1,
-                  style: TextStyle(color: Colors.grey, fontSize: 13.0),
-                )
-              ],
-            ),
-          )),
+              )),
           Container(
               decoration: BoxDecoration(
                   border: Border(
@@ -282,7 +289,7 @@ class _ConversationItem extends StatelessWidget {
                 ],
               ))
         ],
-      ),
+      ),),
     );
   }
 }
