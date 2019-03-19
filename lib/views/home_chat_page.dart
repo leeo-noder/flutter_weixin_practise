@@ -11,7 +11,8 @@ class HomeChatPage extends StatefulWidget {
   _HomeChatPageState createState() => _HomeChatPageState(conversation);
 }
 
-class _HomeChatPageState extends State<HomeChatPage> {
+class _HomeChatPageState extends State<HomeChatPage>
+    with TickerProviderStateMixin {
   Conversation _conversation;
 
   _HomeChatPageState(this._conversation);
@@ -22,18 +23,42 @@ class _HomeChatPageState extends State<HomeChatPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    items
-      ..add(new ChatItem('你好', 1))
-      ..add(new ChatItem('你好', 1))
-      ..add(new ChatItem('你好', 0));
+    ChatItem message = new ChatItem(
+        'Hello, nice to meet you',
+        1,
+        new AnimationController(
+            vsync: this, duration: Duration(milliseconds: 500)));
+    items.add(message);
+    message.animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    for (ChatItem message in items)
+      message.animationController.dispose(); //  释放动效
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final controller = TextEditingController();
-    controller.addListener(() {
-      print('input ${controller.text}');
-    });
+    //定义发送文本事件的处理函数
+    void _handleSubmitted(String text) {
+      if (controller.text.length > 0) {
+        controller.clear(); //清空输入框
+        ChatItem message = new ChatItem(
+            text,
+            0,
+            new AnimationController(
+                vsync: this, duration: Duration(milliseconds: 500)));
+        //状态变更，向聊天记录中插入新记录
+        setState(() {
+          items.add(message);
+        });
+        message.animationController.forward();
+      }
+    }
+
     return new Scaffold(
       appBar: AppBar(
         title: Text(_conversation.title),
@@ -50,9 +75,11 @@ class _HomeChatPageState extends State<HomeChatPage> {
               },
               itemCount: items.length,
             )),
+            Divider(height: 1.0, color: Color(0xFFF7F8F8),),
             Container(
               padding:
-                  EdgeInsets.only(top: 5.0, bottom: 5.0, right: 8.0, left: 8.0),
+                  EdgeInsets.only(top: 5.0, bottom: 15.0, right: 8.0, left: 15.0),
+              color: Color(0xFFF7F7F7),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -69,22 +96,25 @@ class _HomeChatPageState extends State<HomeChatPage> {
                       autocorrect: true,
                       //是否自动更正
                       autofocus: false,
-                      //是否自动对焦
-                      textAlign: TextAlign.left,
-                      //文本对齐方式
-                      style: TextStyle(fontSize: 20.0, color: Colors.black),
-                      //输入文本的样式
+                      textAlign: TextAlign.start,
+                      style: TextStyle(color: Colors.black),
+                      cursorColor: Colors.green,
                       onChanged: (text) {
                         //内容改变的回调
-                        print('change $text');
+                        print('change=================== $text');
                       },
-                      onSubmitted: (text) {
-                        //内容提交(按回车)的回调
-                        print('submit $text');
-                      },
+                      onSubmitted: _handleSubmitted,
                       enabled: true, //是否禁用
                     ),
                   )),
+                  new Container(
+                    margin: new EdgeInsets.symmetric(horizontal: 4.0),
+                    child: new IconButton(
+                        //发送按钮
+                        icon: new Icon(Icons.send), //发送按钮图标
+                        onPressed: () => _handleSubmitted(
+                            controller.text)), //触发发送消息事件执行的函数_handleSubmitted
+                  )
                 ],
               ),
             )
@@ -119,69 +149,82 @@ class ChatContentView extends StatelessWidget {
         onPressed: () {
           // NavigatorUtils.goPerson(context, eventViewModel.actionUser);
         });
-    return chatItem.type == 0
-        ? Container(
-            margin: EdgeInsets.only(top: 8.0, left: 8.0),
-            padding: EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                    child: Container(
-                  padding: EdgeInsets.only(top: 8.0, bottom: 8.0, right: 5.0),
-                  decoration: BoxDecoration(
-                      //image: DecorationImage(image: AssetImage('static/images/chat_bg.png'), fit: BoxFit.fill),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(5.0),
-                      ),
-                      color: Color.fromRGBO(145, 238, 111, 1),
-                      gradient: LinearGradient(
-                          colors: [
-                            Color.fromRGBO(145, 238, 11, 1),
-                            Color.fromRGBO(145, 238, 11, 1)
-                          ],
-                          begin: Alignment.centerRight,
-                          end: Alignment.centerLeft)),
-                  child: Text(
-                    chatItem.msg,
-                    textAlign: TextAlign.right,
-                    style: TextStyle(color: Colors.black, fontSize: 16.0),
-                  ),
-                )),
-                userImage
-              ],
+    return SizeTransition(
+      sizeFactor: CurvedAnimation(
+          parent: this.chatItem.animationController, curve: Curves.easeOutCirc),
+      axisAlignment: 0.0,
+      child: chatItem.type == 0
+          ? Container(
+              margin: EdgeInsets.only(top: 8.0, left: 8.0),
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                      child: Column(
+                    // Column被Expanded包裹起来，使其内部文本可自动换行
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 5.0),
+                        decoration: BoxDecoration(
+                          //image: DecorationImage(image: AssetImage('static/images/chat_bg.png'), fit: BoxFit.fill),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5.0),
+                          ),
+                          color: Color(0xFF9EEA6A),
+                        ),
+                        child: Text(
+                          chatItem.msg,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(color: Colors.black, fontSize: 16.0),
+                        ),
+                      )
+                    ],
+                  )),
+                  userImage
+                ],
+              ),
+            )
+          : Container(
+              margin: EdgeInsets.only(top: 8.0, right: 8.0),
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                children: <Widget>[
+                  userImage,
+                  Expanded(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 5.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(5.0),
+                            ),
+                            color: Colors.white),
+                        child: Text(
+                          chatItem.msg,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(color: Colors.black, fontSize: 16.0),
+                        ),
+                      )
+                    ],
+                  )),
+                ],
+              ),
             ),
-          )
-        : Container(
-            margin: EdgeInsets.only(top: 8.0, right: 8.0),
-            padding: EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                userImage,
-                Expanded(
-                    child: Container(
-                  padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 5.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(5.0),
-                      ),
-                      color: Colors.white),
-                  child: Text(
-                    chatItem.msg,
-                    textAlign: TextAlign.left,
-                    style: TextStyle(color: Colors.black, fontSize: 16.0),
-                  ),
-                )),
-              ],
-            ),
-          );
+    );
   }
 }
 
 class ChatItem {
   var msg;
   int type;
+  AnimationController animationController;
 
-  ChatItem(this.msg, this.type);
+  ChatItem(this.msg, this.type, this.animationController);
 
   String getMsg() {
     return msg;
