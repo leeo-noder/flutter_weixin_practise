@@ -84,7 +84,6 @@ class _ContactsPageState extends State<ContactsPage> {
             }
           }
         }
-        print(arr);
         setState(() {
           mockContact.addAll(arr);
         });
