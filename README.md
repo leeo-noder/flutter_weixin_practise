@@ -3,7 +3,12 @@
 A copy of WeiXin Flutter application.
 用Flutter仿的微信UI
 
-![image](https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/main.gif)
+<table>
+<tr>
+<th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/main.gif" width="320"/></th>
+<th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/main2.gif" width="320"/></th>
+</tr>
+</table>
 
 ## 具体页面截图如下：
 <table>
