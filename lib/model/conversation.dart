@@ -49,9 +49,10 @@ class ConversationControlModel {
     return sql.clearTable(table);
   }
 
-  Future insert(Conversation conversation) {
-    return sql.insert(
+  Future insert(Conversation conversation) async {
+    var response = await sql.insert(
         {'avatar': conversation.avatar, 'name': conversation.title});
+    return response;
   }
 
   Future<List<Conversation>> getAllConversation() async {

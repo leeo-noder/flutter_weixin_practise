@@ -121,19 +121,19 @@ class _HomePageState extends State<HomePage>
   }
 
   getIndexListData(page) async {
-    manager.setSate(true);
     try {
       var response =
           await NetUtils.get('https://randomuser.me/api/?results=10');
+      List<Conversation> arr= [];
+      for (int i = 0; i < response['results'].length; i++) {
+        response['results'][i]['unReadMsgCount'] =
+        i == Random().nextInt(10) ? Random().nextInt(20) : 0;
+        arr.add(Conversation.fromJson(response['results'][i]));
+        await _conversationControlModel.insert(Conversation.fromJson(response['results'][i]));
+      }
+      manager.setSate(true);
       setState(() {
-        for (int i = 0; i < response['results'].length; i++) {
-          response['results'][i]['unReadMsgCount'] =
-              i == Random().nextInt(10) ? Random().nextInt(20) : 0;
-          mockConversation.add(Conversation.fromJson(response['results'][i]));
-          _conversationControlModel
-              .insert(Conversation.fromJson(response['results'][i]))
-              .then((result) {});
-        }
+        mockConversation.addAll(arr);
       });
     } catch (e) {
       print(e);
