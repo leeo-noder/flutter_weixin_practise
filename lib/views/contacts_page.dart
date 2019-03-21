@@ -4,6 +4,8 @@ import 'package:flutter_weixin/model/contact.dart'
 import 'package:flutter_weixin/components/UserIconWidget.dart';
 import 'package:flutter_weixin/model/conversation.dart'
     show ConversationControlModel, Manager;
+import 'package:flutter_weixin/views/404.dart';
+import 'package:flutter_weixin/views/contacts_new_friend_page.dart';
 
 class ContactsPage extends StatefulWidget {
   Color _indexBarBg = Colors.transparent;
@@ -222,26 +224,39 @@ class _ContactItem extends StatelessWidget {
         onPressed: () {
           // NavigatorUtils.goPerson(context, eventViewModel.actionUser);
         });
-    Widget itemRow = Row(
-      children: <Widget>[
-        userImage,
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(color: Color(0xffd9d9d9), width: .3))),
-            padding: EdgeInsets.only(top: 8.0),
+    Widget itemRow = RawMaterialButton(
+      onPressed: () {
+        Navigator.push(context, MaterialPageRoute(builder: (c) {
+          Widget page = new WidgetNotFound();
+          if (!contact.isNetwork) {
+            switch (contact.name) {
+              case '新的朋友': page = new ContactsNewFriend();
+            }
+          }
+          return page;
+        }));
+      },
+      child: Row(
+        children: <Widget>[
+          userImage,
+          Expanded(
             child: Container(
-              // alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(bottom: 12.0),
-              child: Text(
-                contact.name,
-                style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+              decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(color: Color(0xffd9d9d9), width: .3))),
+              padding: EdgeInsets.only(top: 8.0),
+              child: Container(
+                // alignment: Alignment.centerLeft,
+                margin: EdgeInsets.only(bottom: 12.0),
+                child: Text(
+                  contact.name,
+                  style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold),
+                ),
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
     Widget contactItem = contact.isNetwork
         ? (isNameIndex
