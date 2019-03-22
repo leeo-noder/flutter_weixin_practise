@@ -26,6 +26,10 @@ A copy of WeiXin Flutter application.
 <th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/home_chat.jpg" width="320"/></th>
 <th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/wechat_contacts_nf.jpg" width="320"/></th>
 </tr>
+<tr>
+<th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/wechat_contacts_x.jpg" width="320"/></th>
+<th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/wechat_contacts_detail.jpg" width="320"/></th>
+</tr>
 </table>
 
 ## android端下载地址
