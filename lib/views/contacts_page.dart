@@ -6,9 +6,11 @@ import 'package:flutter_weixin/model/conversation.dart'
     show ConversationControlModel, Manager;
 import 'package:flutter_weixin/views/404.dart';
 import 'package:flutter_weixin/views/contacts_new_friend_page.dart';
+import 'package:flutter_weixin/views/contacts_group_chat_page.dart';
+import 'package:flutter_weixin/views/contacts_tags_page.dart';
+import 'package:flutter_weixin/views/contacts_detail_page.dart';
 
 class ContactsPage extends StatefulWidget {
-  Color _indexBarBg = Colors.transparent;
 
   @override
   _ContactsPageState createState() => _ContactsPageState();
@@ -46,6 +48,7 @@ const INDEX_BAR_WORDS = [
 ];
 
 class _ContactsPageState extends State<ContactsPage> {
+  Color _indexBarBg = Colors.transparent;
   ConversationControlModel _conversationControlModel = new ConversationControlModel();
   ScrollController _scrollController;
   static Map _letterPosMap = {
@@ -136,7 +139,7 @@ class _ContactsPageState extends State<ContactsPage> {
             top: 0.0,
             bottom: 0.0,
             child: Container(
-              color: widget._indexBarBg,
+              color: _indexBarBg,
               child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
                 final _totalHeight = constraints.biggest.height;
@@ -146,7 +149,7 @@ class _ContactsPageState extends State<ContactsPage> {
                   onVerticalDragDown: (DragDownDetails details) {
                     print(details);
                     setState(() {
-                      widget._indexBarBg = Colors.black26;
+                      _indexBarBg = Colors.black26;
                       currentLetter = getLetter(
                           context, details.globalPosition, _tileHeight);
                       if (_letterPosMap[currentLetter] != null) {
@@ -170,13 +173,13 @@ class _ContactsPageState extends State<ContactsPage> {
                   onVerticalDragEnd: (DragEndDetails details) {
                     print('end');
                     setState(() {
-                      widget._indexBarBg = Colors.transparent;
+                      _indexBarBg = Colors.transparent;
                     });
                   },
                   onVerticalDragCancel: () {
                     print('cancel');
                     setState(() {
-                      widget._indexBarBg = Colors.transparent;
+                      _indexBarBg = Colors.transparent;
                     });
                   },
                   child: Column(
@@ -185,7 +188,7 @@ class _ContactsPageState extends State<ContactsPage> {
                 );
               }),
             )),
-        widget._indexBarBg == Colors.black26 ?  Center(
+        _indexBarBg == Colors.black26 ?  Center(
           child: Container(
             width: 114.0,
             height: 114.0,
@@ -229,8 +232,13 @@ class _ContactItem extends StatelessWidget {
           Widget page = new WidgetNotFound();
           if (!contact.isNetwork) {
             switch (contact.name) {
-              case '新的朋友': page = new ContactsNewFriend();
+              case '新的朋友': page = new ContactsNewFriend(); break;
+              case '群聊': page = new ContactsGroupChat(); break;
+              case '标签': page = new ContactsTagsChat(); break;
+              default: break;
             }
+          }else {
+            page = new ContactsDetail(contact: contact);
           }
           return page;
         }));
