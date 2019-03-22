@@ -19,13 +19,18 @@ class ContactsDetail extends StatefulWidget {
 class _ContactsDetailState extends State<ContactsDetail> {
   Contact _contact;
   Conversation _conversation;
+
   _ContactsDetailState(this._contact);
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _conversation = new Conversation(avatar: this._contact.avatar, title: this._contact.name, createAt: '', isNetwork: true);
+    _conversation = new Conversation(
+        avatar: this._contact.avatar,
+        title: this._contact.name,
+        createAt: '',
+        isNetwork: true);
   }
 
   @override
@@ -94,32 +99,59 @@ class _ContactsDetailState extends State<ContactsDetail> {
       );
     }
 
-    Widget buildRow(title, isEnd) {
+    Widget buildRow(title, isEnd, showImage) {
       return Row(
         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Expanded(
             child: Container(
+              height: 50.0,
               decoration: !isEnd
                   ? BoxDecoration(
                       border: Border(
                           bottom:
                               BorderSide(color: Color(0xffd9d9d9), width: .3)))
                   : null,
-              padding: EdgeInsets.only(top: 16.0),
               margin: EdgeInsets.only(left: 15.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(bottom: 15.0),
                     child: title,
                   ),
                   Container(
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
+                        showImage
+                            ? Row(
+                                  children: <Widget>[
+                                    Container(
+                                      child: Image.asset(
+                                        'static/images/default_nor_avatar.png',  fit: BoxFit.cover,
+                                        width: 40.0,
+                                        height: 40.0,),
+                                      margin: EdgeInsets.only(right: 5.0),
+                                    ),
+                                    Container(
+                                      child: Image.asset(
+                                        'static/images/default_nor_avatar.png',  fit: BoxFit.cover,
+                                        width: 40.0,
+                                        height: 40.0,),
+                                      margin: EdgeInsets.only(right: 5.0),
+                                    ),
+                                    Container(
+                                      child: Image.asset(
+                                        'static/images/default_nor_avatar.png',  fit: BoxFit.cover,
+                                        width: 40.0,
+                                        height: 40.0,),
+                                      margin: EdgeInsets.only(right: 5.0),
+                                    )
+                                  ],
+                                )
+                            : Container(),
                         Container(
-                          padding: EdgeInsets.only(bottom: 15.0, right: 10.0),
+                          padding: EdgeInsets.only(right: 10.0),
                           child: Icon(
                             Icons.chevron_right,
                             color: Colors.grey,
@@ -169,7 +201,7 @@ class _ContactsDetailState extends State<ContactsDetail> {
                       '设置备注和标签',
                       style: TextStyle(color: Colors.black, fontSize: 16.0),
                     ),
-                    true),
+                    true, false),
               ),
               Container(
                 decoration: BoxDecoration(
@@ -189,13 +221,13 @@ class _ContactsDetailState extends State<ContactsDetail> {
                           '朋友圈',
                           style: TextStyle(color: Colors.black, fontSize: 16.0),
                         ),
-                        false),
+                        false, true),
                     buildRow(
                         Text(
                           '更多信息',
                           style: TextStyle(color: Colors.black, fontSize: 16.0),
                         ),
-                        true),
+                        true, false),
                   ],
                 ),
               ),
