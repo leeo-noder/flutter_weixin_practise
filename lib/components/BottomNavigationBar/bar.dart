@@ -131,6 +131,21 @@ class _BarState extends State<Bar> {
             PopupMenuItem(
               child: _buildPopupMenuItem(ICons.ADDRESS_BOOK_CHECKED, '添加朋友'),
               value: "2",
+            ),
+            PopupMenuDivider(height: 1.0,),
+            PopupMenuItem(
+              child: _buildPopupMenuItem(Icons.camera_alt, '扫一扫'),
+              value: "3",
+            ),
+            PopupMenuDivider(height: 1.0,),
+            PopupMenuItem(
+              child: _buildPopupMenuItem(Icons.playlist_add_check, '收付款'),
+              value: "4",
+            ),
+            PopupMenuDivider(height: 1.0,),
+            PopupMenuItem(
+              child: _buildPopupMenuItem(Icons.message, '帮助与反馈'),
+              value: "5",
             )
           ];
         },
