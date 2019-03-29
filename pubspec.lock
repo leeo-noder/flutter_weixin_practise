@@ -7,7 +7,7 @@ packages:
       name: analyzer
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.35.3"
+    version: "0.35.4"
   args:
     dependency: transitive
     description:
@@ -35,7 +35,7 @@ packages:
       name: build
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.1"
+    version: "1.1.2"
   build_config:
     dependency: transitive
     description:
@@ -78,13 +78,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.6"
-  csslib:
-    dependency: transitive
-    description:
-      name: csslib
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.14.6"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -98,7 +91,7 @@ packages:
       name: dart_style
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.2.3"
+    version: "1.2.4"
   dio:
     dependency: "direct main"
     description:
@@ -113,6 +106,34 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.3"
+  firebase_auth:
+    dependency: "direct main"
+    description:
+      name: firebase_auth
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.8.2"
+  firebase_core:
+    dependency: transitive
+    description:
+      name: firebase_core
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.1+1"
+  firebase_database:
+    dependency: "direct main"
+    description:
+      name: firebase_database
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.2"
+  firebase_storage:
+    dependency: "direct main"
+    description:
+      name: firebase_storage
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.0+1"
   fluro:
     dependency: "direct main"
     description:
@@ -150,7 +171,7 @@ packages:
       name: front_end
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.13"
+    version: "0.1.14"
   glob:
     dependency: transitive
     description:
@@ -158,13 +179,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.7"
-  html:
-    dependency: transitive
+  google_sign_in:
+    dependency: "direct main"
     description:
-      name: html
+      name: google_sign_in
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.13.4+1"
+    version: "4.0.1+1"
+  image_picker:
+    dependency: "direct main"
+    description:
+      name: image_picker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.5.0+9"
   json_annotation:
     dependency: "direct main"
     description:
@@ -185,7 +213,7 @@ packages:
       name: kernel
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.3.13"
+    version: "0.3.14"
   logging:
     dependency: transitive
     description:
@@ -228,13 +256,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.5.0"
-  plugin:
-    dependency: transitive
-    description:
-      name: plugin
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.2.0+3"
   pub_semver:
     dependency: transitive
     description:
@@ -262,7 +283,7 @@ packages:
       name: shared_preferences
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.1+1"
+    version: "0.5.1+2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -345,13 +366,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.0.2"
-  utf:
-    dependency: transitive
-    description:
-      name: utf
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.9.0+5"
   vector_math:
     dependency: transitive
     description:
@@ -374,5 +388,5 @@ packages:
     source: hosted
     version: "2.1.15"
 sdks:
-  dart: ">=2.1.1-dev.0.0 <3.0.0"
+  dart: ">=2.2.0 <3.0.0"
   flutter: ">=1.2.1 <2.0.0"
