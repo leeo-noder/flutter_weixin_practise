@@ -33,10 +33,6 @@ dependencies:
   event_bus:  ^1.0.3
   fluttertoast: ^3.0.3
   image_picker: 0.5.0+9
-  google_sign_in: 4.0.1+1
-  firebase_auth: 0.8.2
-  firebase_database: 2.0.2
-  firebase_storage: 2.1.0+1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -106,34 +106,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.3"
-  firebase_auth:
-    dependency: "direct main"
-    description:
-      name: firebase_auth
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.8.2"
-  firebase_core:
-    dependency: transitive
-    description:
-      name: firebase_core
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.3.1+1"
-  firebase_database:
-    dependency: "direct main"
-    description:
-      name: firebase_database
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.2"
-  firebase_storage:
-    dependency: "direct main"
-    description:
-      name: firebase_storage
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.1.0+1"
   fluro:
     dependency: "direct main"
     description:
@@ -179,13 +151,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.7"
-  google_sign_in:
-    dependency: "direct main"
-    description:
-      name: google_sign_in
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "4.0.1+1"
   image_picker:
     dependency: "direct main"
     description:
