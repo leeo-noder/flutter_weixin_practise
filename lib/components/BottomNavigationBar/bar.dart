@@ -7,6 +7,8 @@ import 'package:flutter_weixin/views/my_page.dart';
 import 'dart:async';
 import 'package:flutter_weixin/common/event/ThemeChangeEvent.dart'
     show ThemeChangeEvent, ThemeChangeHandle;
+import 'package:barcode_scan/barcode_scan.dart';
+import 'package:flutter/services.dart';
 
 class Bar extends StatefulWidget {
   Bar({Key key}) : super(key: key);
@@ -98,7 +100,22 @@ class _BarState extends State<Bar> {
               ],
             ));
   }
-
+  static Future _scanQR() async {
+    try {
+      String qrResult = await BarcodeScanner.scan();
+      print(qrResult);
+    } on PlatformException catch(ex) {
+      if (ex.code == BarcodeScanner.CameraAccessDenied) {
+        print(ex.code);
+      } else {
+        print(ex.code);
+      }
+    } on FormatException {
+      print("pressed ths back button before scanning anyting");
+    } catch(ex){
+      print(ex);
+    }
+  }
   static _buildPopupMenuItem(IconData icon, String title) {
     return  Row(children: <Widget>[
         Icon(
@@ -152,7 +169,12 @@ class _BarState extends State<Bar> {
         padding: EdgeInsets.only(top: 0.0),
         elevation: 5.0,
         icon: Icon(Icons.add_circle_outline),
-        onSelected: (String selected) {},
+        onSelected: (String selected) {
+          print(selected);
+          switch (selected) {
+            case '3' : _scanQR();break;
+          }
+        },
       ),
     ],
   );
