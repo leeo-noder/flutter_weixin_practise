@@ -32,7 +32,7 @@ A copy of WeiXin Flutter application.
 </tr>
 </table>
 
-## android端下载地址
+## android端下载地址(下载密码：123456)
 <table>
 <tr>
 <th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/QRCode_258.png" width="320"/></th>
