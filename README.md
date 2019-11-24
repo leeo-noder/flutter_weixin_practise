@@ -35,6 +35,6 @@ A copy of WeiXin Flutter application.
 ## android端下载地址
 <table>
 <tr>
-<th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/static/images/QRCode_258.png" width="320"/></th>
+<th><img src="https://raw.githubusercontent.com/leeo-noder/flutter_weixin_demo/master/QRCode_258.png" width="320"/></th>
 </tr>
 </table>
